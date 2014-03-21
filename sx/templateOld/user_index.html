@@ -1,0 +1,61 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('user/index')}"><img src="__PUBLIC__/images/t_ed.jpg" alt=""></a><a href="">修改资料</a></li>
+					<li><a href="{F:url('user/log')}"><img src="__PUBLIC__/images/t_log.jpg" alt=""></a><a href="">登录日志</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 修改资料</h1>
+				<form action="{F:url('user/index')}" method="post">
+				<table id="xiugai">
+					<tr>
+						<td width="75" align="right" valign="top">登录用户名:</td>
+						<td>&nbsp;{$data.username}</td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">用户密码:</td>
+						<td>&nbsp;<input type="text" name="password"></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">用户昵称:</td>
+						<td>&nbsp;<input type="text" name="xingming" value="{$data.xingming}"></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">性别:</td>
+						<td id="radio">&nbsp;<label>男</label><input name="xingbie" type="radio" value="0" {if $data['xingbie'] == 0}checked{/if}><input name="xingbie" type="radio" value="1" {if $data['xingbie'] == 1}checked{/if}><label>女</label></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">QQ:</td>
+						<td>&nbsp;<input type="text" name="qq" value="{$data.qq}"></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">地址:</td>
+						<td>&nbsp;<input type="text" name="dizhi" value="{$data.dizhi}"></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">电话:</td>
+						<td>&nbsp;<textarea id="tel" name="dianhua" id="" >{php echo text_out($data['dianhua'])}</textarea><span>可以设置多个联系方式比如座机邮箱等等</span> </td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">银行信息:</td>
+						<td>&nbsp;<textarea id="info" name="yinhang" id="" >{php echo text_out($data['yinhang'])}</textarea><br /></td>
+					</tr>
+					<tr>
+						<td width="75"></td>
+						<input type="hidden" name="do" value="yes">
+						<td><input id="submit" type="submit" value=""></td>
+					</tr>
+				</table>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

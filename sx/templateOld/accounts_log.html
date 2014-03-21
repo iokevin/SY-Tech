@@ -1,0 +1,42 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('accounts/index')}"><img src="__PUBLIC__/images/t_js.jpg" alt=""></a><a href="">申请结算</a></li>
+					<li><a href="{F:url('accounts/log')}"><img src="__PUBLIC__/images/t_jl.jpg" alt=""></a><a href="">结算记录</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 结算记录</h1>
+				<table id="denglu">
+					<tr>
+						<td width="30">编号</td>
+						<td>结算信息</td>
+						<td width="150">申请时间</td>
+						<td width="90">状态</td>
+					</tr>
+					{loop $data $vo}
+					<tr>
+						<td>{$n}</td>
+						<td>{F:text_out($vo['liuyan'])}</td>
+						<td>{$vo.time time="Y-m-d H:i:s"}</td>
+						<td>{if $vo['zhuangtai'] == 0}<font color="red">未处理</font>{elseif  $vo['zhuangtai'] == 1}<font color="green">已处理</font>{/if}</td>
+					</tr>
+					{/loop}
+					{if empty($data)}
+					<tr id="empty">
+						<td colspan="4">没有记录</td>
+					</tr>
+					{/if}
+				</table>
+				<div class="page">{$page}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

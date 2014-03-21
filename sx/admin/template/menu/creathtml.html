@@ -1,0 +1,24 @@
+            <h3 class="f14"><span class="switchs cu on" title="生成静态"></span>生成静态</h3>
+            <ul>
+                <li id="_MP1" class="sub_menu">
+                	<a href="javascript:_MP('1','__APP__/creathtml/creatindex');" hidefocus="true" style="outline:none;">生成首页</a></li>
+                <li id="_MP2" class="sub_menu">
+                	<a href="javascript:_MP('2','__APP__/creathtml/createlist');" hidefocus="true" style="outline:none;">生成栏目页</a></li>
+                <li id="_MP3" class="sub_menu">
+                    <a href="javascript:_MP('3','__APP__/creathtml/createcontent');" hidefocus="true" style="outline:none;">生成内容页</a></li>
+            </ul>
+			<script type="text/javascript">
+            $(".switchs").each(function(i){
+                var ul = $(this).parent().next();
+                $(this).click(
+                function(){
+                    if(ul.is(':visible')){
+                        ul.hide();
+                        $(this).removeClass('on');
+                            }else{
+                        ul.show();
+                        $(this).addClass('on');
+                    }
+                })
+            });
+            </script>

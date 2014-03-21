@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+</head>
+<body>
+<script>
+        var editor;
+        KindEditor.ready(function(K) {
+             var editor = K.editor({
+                resizeType : 2,
+                uploadJson : '__PUBLIC__/edit/upload_json.php' // 相对于当前页面的路径
+        }); 
+        K('#image1').click(function() {
+editor.loadPlugin('image', function() {
+editor.plugin.imageDialog({
+imageUrl : K('#url1').val(),
+clickFn : function(url, title, width, height, border, align) {
+K('#url1').val(url);
+editor.hideDialog();
+}
+});
+});
+}); 
+        K('#J_selectImage').click(function() {
+editor.loadPlugin('multiimage', function() {
+editor.plugin.multiImageDialog({
+clickFn : function(urlList) {
+var div = K('#J_imageView');
+div.html('');
+K.each(urlList, function(i, data) {
+div.append('<img src="' + data.url + '">');
+});
+editor.hideDialog();
+}
+});
+});
+});
+});
+</script>
+<style type="text/css">
+  html{_overflow-y:scroll}
+</style>
+<script type="text/javascript">
+<!--
+  var charset = 'utf-8';
+  var uploadurl = '__ROOT__/upload/';
+
+  function check_form(obj){
+  if(obj.name.value=='')
+  {
+    alert('栏目名不能为空');
+    obj.name.focus();
+    return false;
+  }
+  return true;
+}
+//-->
+</script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+<form name="myform" id="myform" action="edit" method="post" enctype="multipart/form-data" onsublime="return check_form(document.myform)">
+<div class="addContent">
+    <a title="展开与关闭" class="r-close" hidefocus="hidefocus" style="outline-style: none; outline-width: medium;" id="RopenClose" href="javascript:;"><span class="hidden">展开</span></a>
+    <div class="col-auto">
+      <div class="col-1">
+          <div class="content pad-6">
+<table width="100%" cellspacing="0" class="table_form">
+  <tbody> 
+  <tr>
+      <th width="80"> <font color="red">*</font> 所属栏目   </th>
+      <td><!-- <input type="hidden" name="info[catid]" value="6">国内 <a href='javascript:;' onclick="omnipotent('selectid','?m=content&c=content&a=add_othors&siteid=1','同时发布到其他栏目',1);return false;" style='color:#B5BFBB'>[同时发布到其他栏目]</a><ul class='list-dot-othors' id='add_othors_text'></ul>   -->
+        <select name="pid"  reg="." id="cid" >
+        <option value="0">顶级栏目</option>
+        <?php foreach($cat as $vo){?>
+         <option value="{$vo['id']}" <?php if($vo['id'] == $info['pid']) echo "selected";?> >{$vo['cname']}</option>
+        <?php }?>
+      </td>
+    </tr>
+  <tr>
+      <th width="80"> <font color="red">*</font> 栏目名称   </th>
+      <td><input type="text" style="width:400px;" name="name" id="title" value="{$info['name']}" style="color:" class="measure-input" onkeyup="strlen_verify(this, 'title_len', 80)"/>
+    </span>还可输入<B><span id="title_len">80</span></B> 个字符  </td>
+    </tr>
+    <tr>
+      <th width="80"> 栏目URL   </th>
+        <td>
+          <input type='text' name='pinyin' id='keywords' value="{$info['pinyin']}" style='width:280px' class='input-text'>  
+          <span>只允许英文数字下划线留空则将标题自动转换成拼音</span></td>
+      </td>
+    </tr>
+     <tr>
+      <th width="80"> 封面图片   </th>
+      <td> <input type='text' name='pic' value="{$info['pic']}" style='width:280px' id="url1"  class='input-text'>
+        <input type="button" value="选择图片" id="image1" class="Ybutton">
+      </td>
+    </tr>
+      <tr>
+      <th width="80"> 图片   </th>
+      <td> 
+        <input type="button" id="J_selectImage" value="批量上传" class="Ybutton"/>
+        <div id="J_imageView"></div>
+      </td>
+    </tr>
+      <tr>
+      <th width="80"> 排序   </th>
+      <td><input type='text' name='ord' id='keywords' value="{$info['ord']}" style='width:280px' class='input-text'></td>
+    </tr>
+      <tr>
+      <th width="80"> 栏目模块  </th>
+      <td><input type='text' name='tpl_list' id='keywords' value="{$info['tpl_list']}" style='width:280px' class='input-text'></td>
+    </tr>
+      <tr>
+      <th width="80"> 内容模块   </th>
+      <td><input type='text' name='tpl_content' id='keywords' value="{$info['tpl_content']}" style='width:280px' class='input-text'></td>
+    </tr>
+    <tr>
+       <th width="80"></th>
+      <td>
+        <input type="hidden" name="do" value="yes">
+        <input type="hidden" name="id" value="{$info['id']}">
+        <input type="submit" value="修改栏目" name="dosubmit" id="dosubmit" class="Ybutton">
+<!--         <input type="reset" value="重置" name="reset" id="reset" class="aui_buttons aui_state_highlight"> -->
+      </td>
+    </tr>
+    </tbody></table>
+                </div>
+          </div>
+        </div>
+        
+    </div>
+</div>
+</form>
+<div class="fixed-bottom">
+  <div class="fixed-but text-c"></div>
+</div>
+</form>
+</body>
+</html>

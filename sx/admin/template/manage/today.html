@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('#cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div class="subnav">
+  <form action="{F:url('manage/today')}" method="get">
+    <div class="content-menu ib-a blue line-x">
+      今天的订单记录 指定单号显示 从 <input type="text" size="10" name="i" value="{$_GET[i]}"/> 到 <input type="text" size="10" name="a" value="{$_GET['a']}"/>
+      &nbsp;&nbsp;用户名:<input type="text" name="username" value="{$_GET['username']}"/> <input name="time" id="cal" type="text" size="12" value="{$_GET['time']}"/><input class="Ybutton" type="submit" value="查看"/>
+      <input type="hidden" name="do" value="yes"/>
+    </div>
+    </form>
+</div>
+{loop $data $vo}
+<div id="today">
+订单编号：{$vo.aid}<br />
+订单主人：{$vo.username}<br />
+收获人地址：{$vo.address}<br />
+收获人姓名：{$vo.shouhuoren}<br />
+收货人电话：{php echo cp_decode($vo['tel'],'Nan')}<br />
+代收款：{$vo.daishoukuan}<br />
+代发产品：{$vo.chanpin}<br />
+物流单号：{$vo.wuliudanhao}<br />
+</div>
+{/loop}
+<div id="pages">{$page}</div>
+</div>
+</body></html>

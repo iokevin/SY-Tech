@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+ <script>
+         var editor;
+        KindEditor.ready(function(K) {
+             var editor = K.editor({
+                resizeType : 2,
+                uploadJson : '__PUBLIC__/edit/upload_json.php' // 相对于当前页面的路径
+        }); 
+                K('#image1').click(function() {
+editor.loadPlugin('image', function() {
+editor.plugin.imageDialog({
+imageUrl : K('#url1').val(),
+clickFn : function(url, title, width, height, border, align) {
+K('#url1').val(url);
+editor.hideDialog();
+}
+});
+});
+}); 
+        });
+</script>
+<style type="text/css">
+  html{_overflow-y:scroll}
+</style><script type="text/javascript">
+<!--
+  var charset = 'utf-8';
+  var uploadurl = '__ROOT__/upload/';
+//-->
+</script>
+<div class="pad-10">
+<div class="col-1">
+<form action="" method="post">
+<table width="100%" cellspacing="0" class="table_form">
+  <tbody> 
+   <tr>
+      <th width="80"> 上传Banner   </th>
+      <td>
+        <input type='text' name='upload' value='' style='width:380px' id="url1"  class='input-text'>
+        <input type="hidden" name="do" value="yes">
+      </td>
+      <td><input type="button" value="选择图片" id="image1" class="Ybutton">　 
+        <input type="submit" value="上传Banner" name="dosubmit" class="Ybutton"></td>
+      <td>　</td>
+    </tr>
+  
+  <tr>
+    <td>　</td>
+     <td>　</td>
+      <td>　</td>
+      <td>　</td>
+  </tr>
+  </tbody>
+</body>
+</form>
+
+  <!-- <tr>
+      <th width="80"> 关键词   </th>
+      <td><input type='text' name='keywords' id='keywords' value='' style='width:280px'   class='input-text'>多关键词之间用空格或者“,”隔开</td>
+    </tr> -->
+
+<form action="__URL__/edit" method="post">
+<table width="100%" cellspacing="0" class="table_form">
+    <tbody>
+      <?php 
+      if(!empty($info)){
+      foreach($info as $vo){?>
+    <tr>
+      <td width="50"> 图片   </td>
+       <td width="400">
+         <img src="{$vo['pic']}" alt="{$vo['info']}" width="300" height="100"/>
+         <input type="hidden" name="pic[]" value="{$vo['pic']}">
+       </td>
+      <td width="50"><span>链接:</span><input type='text' name='url[]' id='keywords' value='{$vo['url']}' style='width:280px'   class='input-text'></td>
+      <td align="center"><a onclick="return confirm('确认要删除 『 {$vo['title']} 』 吗？')" href="__URL__/del-{$vo['id']}">删除<font color="red">X</font></a></td>
+    </tr>
+    <?php }}?>
+    <tr>
+       <th width="80"></th>
+      <td>
+        <input type="hidden" name="do" value="yes">
+        <input type="submit" value="修改" name="dosubmit" id="dosubmit" class="Ybutton">　
+        <!-- <input type="reset" value="重置" name="reset" id="reset" class="aui_buttons aui_state_highlight"> -->
+      </td>
+      <td>　</td>
+      <td>　</td>
+    </tr>
+    </tbody>
+</form>
+  </table>
+</div>
+<!-- <div class="fixed-bottom">
+  <div class="fixed-but text-c"></div>
+</div> -->
+</form>
+</div>
+</body>
+</html>

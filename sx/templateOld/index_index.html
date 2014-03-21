@@ -1,0 +1,28 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('manage/add')}"><img src="__PUBLIC__/images/t_add.jpg" alt=""></a><a href="">添加订单</a></li>
+					<li><a href="{F:url('manage/index')}"><img src="__PUBLIC__/images/t_gl.jpg" alt=""></a><a href="">订单管理</a></li>
+					<li><a href="{F:url('user/index')}"><img src="__PUBLIC__/images/t_ed.jpg" alt=""></a><a href="">修改资料</a></li>
+					<li><a href="{F:url('accounts/log')}"><img src="__PUBLIC__/images/t_jl.jpg" alt=""></a><a href="">结算记录</a></li>
+					<li><a href="{F:url('user/log')}"><img src="__PUBLIC__/images/t_log.jpg" alt=""></a><a href="">登录日志</a></li>
+					<li><a href="{F:url('accounts/index')}"><img src="__PUBLIC__/images/t_js.jpg" alt=""></a><a href="">申请结算</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 最新公告</h1>
+				<div id="index">
+				<p>提示：您已成功登录！</p>
+{$SCRAP.about}
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

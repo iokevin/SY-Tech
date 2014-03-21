@@ -1,0 +1,105 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('accounts/index')}"><img src="__PUBLIC__/images/t_js.jpg" alt=""></a><a href="">申请结算</a></li>
+					<li><a href="{F:url('accounts/log')}"><img src="__PUBLIC__/images/t_jl.jpg" alt=""></a><a href="">结算记录</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 结算记录</h1>
+				<table id="shenqing">
+					<tr>
+						<td>编号</td>
+						<td>收货人</td>
+						<td>发货日期</td>
+						<td>物流</td>
+						<td>物流单号</td>
+						<td>代收款</td>
+						<td>批发价</td>
+						<td>邮费</td>
+						<td>结账</td>
+						<td>状态</td>
+						<td>详情</td>
+					</tr>
+				  <?php
+			      if(!empty($danhao)){
+			      $sql = "SELECT *,A.id as aid FROM {$model->pre}order A LEFT JOIN {$model->pre}user B ON A.userid=B.id WHERE A.id in($danhao)";
+			      $data = $model->query($sql);
+			      }
+			      ?>
+			      {loop $data $vo}
+					<tr>
+						  <td>{$vo.aid}</td>
+					      <td>{$vo.shouhuoren}</td>
+					      <td>{$vo.fahuotime}</td>
+					      <td>{$vo.wuliu}</td>
+					      <td>{$vo.wuliudanhao}</td>
+					      <td>{$vo.daishoukuan}</td>
+					      <td>{$vo.pifajia}</td>
+					      <td>{$vo.youfei}</td>
+					      <td>{$vo.yingli}</td>
+					      <td>
+					      <?php
+					      switch ($vo['isfahuo']){
+					            case '0':
+					            $vo['isfahuo'] = "未发货";
+					          break;
+					            case '1':
+					            $vo['isfahuo'] = "已发货";
+					          break;
+					            case '2':
+					            $vo['isfahuo'] = "退货";
+					          break;
+					            case '3':
+					            $vo['isfahuo'] = "成功";
+					          break;
+					            default:
+					            $vo['isfahuo'] = "未发货";
+					          break;
+					        }
+
+					        switch ($vo['isjiesuan']){
+					            case '0':
+					            $vo['isjiesuan'] = "未结算";
+					          break;
+					            case '1':
+					            $vo['isjiesuan'] = "已结算";
+					          break;
+					            default:
+					            $vo['isjiesuan'] = "未结算";
+					          break;
+					        }
+					       ?>
+					        {$vo.isfahuo}-{$vo.isjiesuan}</td>
+					        <td><a href="{F:url('manage/show-id-'.$vo[aid])}">详情</a></td>
+					</tr>
+					{/loop}
+					{if empty($data)}
+					<tr id="empty">
+						<td colspan="11">没有记录</td>
+					</tr>
+					{/if}
+					<tr class="js k">
+						<td colspan="11">&nbsp;</td>
+					</tr>
+					<tr class="js">
+						<td colspan="11">结算的订单编号:{$dingdanid}</td>
+					</tr>
+					<tr class="js heji">
+						<td colspan="11">结算合计: {$heji}元</td>
+					</tr>
+					<tr class="js k">
+						<td colspan="11">&nbsp;</td>
+					</tr>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('#cal').calendar({btnBar:false});
+});
+
+  function calc(){
+    var daishoukuan = $("input[name='daishoukuan']").val();
+    var pifajia = $("input[name='pifajia']").val();
+    var youfei  = $("input[name='youfei']").val();
+    var duanxin = $("#duanxin option:selected").val();
+    var isfahuo = $("#isfahuo option:selected").val();
+    var wuliu   = $("#wuliu option:selected").val();
+    var canbao  = $("#canbao option:selected").val();
+    $.ajax({
+    type: "post",
+    data: {daishoukuan:daishoukuan,pifajia:pifajia,youfei:youfei,duanxin:duanxin,isfahuo:isfahuo,wuliu:wuliu,canbao:canbao},
+    dataType: 'json',
+    url: "__URL__/ajax_Calculate",
+    success: function(data){
+      $("input[name='yingli']").val(data.yingli);
+      $("input[name='dsshouxufei']").val(data.dsshouxufei);
+      $("input[name='qitafei']").val(data.qitafei);
+    }
+  });
+  }
+  
+  function vipcalc(){
+    var daishoukuan = $("input[name='daishoukuan']").val();
+    var pifajia = $("input[name='pifajia']").val();
+    var youfei  = $("input[name='youfei']").val();
+    var duanxin = $("#duanxin option:selected").val();
+    var isfahuo = $("#isfahuo option:selected").val();
+    var wuliu   = $("#wuliu option:selected").val();
+    var canbao  = $("#canbao option:selected").val();
+    $.ajax({
+    type: "post",
+    data: {daishoukuan:daishoukuan,pifajia:pifajia,youfei:youfei,duanxin:duanxin,isfahuo:isfahuo,wuliu:wuliu,canbao:canbao},
+    dataType: 'json',
+    url: "__URL__/ajax_VipCalculate",
+    success: function(data){
+      $("input[name='yingli']").val(data.yingli);
+      $("input[name='dsshouxufei']").val(data.dsshouxufei);
+      $("input[name='qitafei']").val(data.qitafei);
+    }
+  });
+  }
+</script>
+</head>
+<body>
+  <style type="text/css">
+  html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<form action="{F:url('manage/edit')}" method="post">
+<table id="manage_add">
+  <tr>
+    <td width="80">订单主人:</td>
+    <td><input type="text" name="username" value="{$data.username}">&nbsp;&nbsp;{if $uservip == 2 }<font color="Red" size="3">VIP帐户</font>{elseif $uservip == 4 }<font color="Blue" size="3">黑名单用户</font> {/if}</td>
+  </tr>
+   <tr>
+    <td>收货人:</td>
+    <td><input type="text" name="shouhuoren" value="{$data.shouhuoren}"></td>
+  </tr>
+   <tr>
+    <td>收货地址:</td>
+    <td><input type="text" size="60" name="address" value="{$data.address}"></td>
+  </tr>
+   <tr>
+    <td>产品详情:</td>
+    <td><textarea name="chanpin" id="" cols="30" rows="10">{F:text_out($data['chanpin'])}</textarea></td>
+  </tr>
+   <tr>
+    <td>联系电话:</td>
+    <td><input type="text" name="dianhua" value="{$data.dianhua}">邮编:<input type="text" name="youbian" value="{$data.youbian}"></td>
+  </tr>
+   <tr>
+    <td>物流:</td>
+    <td>单号:<input type="text" name="wuliudanhao" value="{$data.wuliudanhao}">
+      <select id="wuliu" name="wuliu" size="1">
+      {loop $post $key $vo}
+              <option value="{$vo}" {if $vo==$data['wuliu']}selected{/if}>{$vo}</option>
+      {/loop}
+      </select>
+      {if $data['wuliu']=='顺丰COD' || $data['wuliu']=='宅急送COD'}
+       &nbsp;LC号:<input type="text" name="codlc" value="{$data.alicod}">
+      {/if}
+    </td>
+  </tr>
+   <tr>
+    <td>费用:</td>
+    <td>代收款:<input type="text" name="daishoukuan" value="{$data.daishoukuan}">批发价:<input type="text" name="pifajia" value="{$data.pifajia}">邮费:<input type="text" name="youfei" value="{$data.youfei}"><br />代收手续费:<input type="text" name="dsshouxufei" value="{$data.dsshouxufei}">其他费用:<input type="text" name="qitafei" value="{$data.qitafei}"></td>
+  </tr>
+   <tr>
+    <td>其他:</td>
+    <td>是否参保:
+      <select id="canbao" name="canbao" size="1">
+      <option value="0" {if $data['canbao'] == 0}selected{/if}>否</option>
+      <option value="1" {if $data['canbao'] == 1}selected{/if}>是</option>
+    </select>
+  是否短信:
+      <select id="duanxin" name="duanxin" size="1">
+      <option value="0" {if $data['duanxin'] == 0}selected{/if}>否</option>
+      <option value="1" {if $data['duanxin'] == 1}selected{/if}>是</option>
+    </select>
+  </td>
+  </tr>
+   <tr>
+    <td>处理时间:</td>
+    <td>下单时间:<span id="r">{$data.addtime}</span> 发货时间:<input id="cal" type="text" name="fahuotime" value="{$data.fahuotime}"></td>
+  </tr>
+   <tr>
+    <td>订单状态:</td>
+    <td>是否发货:
+      <select id="isfahuo" name="isfahuo">
+         <option value="0" {if $data['isfahuo'] == 0}selected{/if}>未发货</option>
+         <option value="1" {if $data['isfahuo'] == 1}selected{/if}>已发货</option>
+         <option value="2" {if $data['isfahuo'] == 2}selected{/if}>退货</option>
+         <option value="3" {if $data['isfahuo'] == 3}selected{/if}>成功</option>
+         <option value="4" {if $data['isfahuo'] == 4}selected{/if}>问题件</option>
+         </select>
+        是否结算:
+      <select name="isjiesuan" size="1">
+      <option value="0" {if $data['isjiesuan'] == 0}selected{/if}>未结算</option>
+      <option value="1" {if $data['isjiesuan'] == 1}selected{/if}>已结算</option>
+    </select>
+       </td>
+  </tr>
+   <tr>
+    <td>结账id:</td>
+    <td>{if $data['jiesuanid'] == 0}还没有结账{else}<a href="__APP__/apply/more?id={$data.jiesuanid}">编号 {$data.jiesuanid}</a> 结算时间<?php $history = $model->table('history')->where('id='.$data['jiesuanid'])->find();?>{$history.time time="Y-m-d H:i:s"}{/if}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{if $uservip == 2 }<font color="Red" size="5">VIP帐户</font>{/if}</td>
+    
+  </tr>
+   <tr>
+    <td>最后盈利:</td>
+ <!--   <td><input type="text" name="yingli" value="{$data.yingli}">元 <a href="javascript:calc()"><font color="blue">计算盈利</font></a> <span id="r">注:如果退货请用负数表示</span></td>-->
+ <td><input type="text" name="yingli" value="{$data.yingli}">元{if $uservip==2 }<input class="Ybutton" type="button" style="color:blue" value="VIP计算盈利" onclick="vipcalc()" > {else}<input class="Ybutton" type="button" style="color:blue" value="计算盈利" onclick="calc()" >{/if} <span id="r">注:如果退货请用负数表示</span></td>
+  </tr>
+   <tr>
+    <td>备注:</td>
+    <td><textarea name="beizhu" id="" cols="30" rows="10">{F:text_out($data['beizhu'])}</textarea></td>
+  </tr>
+   <tr>
+    <td></td>
+    <!-- <input type="hidden" name="username" value="{$data.username}"/> -->
+    <input type="hidden" name="do" value="yes"/>
+    <input type="hidden" name="id" value="{$_GET[0]}"/>
+    <td id="bt"><input class="Ybutton" type="submit" value="修改" {if $uservip == 4 } disabled {/if}><input class="Ybutton" type="reset" value="重置"><input class="Ybutton" type="button" value="返回上一页" onclick="javascript:window.history.go(-1);"></td>
+  </tr>
+</table>
+</form>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>

@@ -1,0 +1,28 @@
+<div class="col-left col-1 left-memu">
+        	<h5 class="title"><img src="__PUBLIC__/images/icon/m_1.png" width="15" height="15" /> 账户管理</h5>
+            <ul>
+       	    <li {if strpos($_SERVER['PHP_SELF'],'user/index')} class="on"{/if}><a href="{F:url('user/index')}"><img src="__PUBLIC__/images/icon/user.png" width="14" height="15" /> 个人资料</a></li>
+            <li {if strpos($_SERVER['PHP_SELF'],'user/log')} class="on"{/if}><a href="{F:url('user/log')}"><img src="__PUBLIC__/images/icon/vcard.png" width="14" height="16" /> 登录日志</a></li>
+            </ul>
+     
+<h6 class="title">订单管理</h6>
+            <ul>
+            	<li {if strpos($_SERVER['PHP_SELF'],'manage/add')} class="on"{/if}><a href="{F:url('manage/add')}"><img src="__PUBLIC__/images/icon/m_2.png" width="15" height="16" /> 添加订单</a></li>
+                <li {if strpos($_SERVER['REQUEST_URI'],'manage/index') && !strpos($_SERVER['REQUEST_URI'],'action')} class="on"{/if}><a href="{F:url('manage/index')}"><img src="__PUBLIC__/images/icon/m_3.png" width="16" height="16" /> 所有订单</a></li>
+                <li {if strpos($_SERVER['REQUEST_URI'],'wf')} class="on"{/if}><a href="{F:url('manage/index?action=wf&do=yes')}"><img src="__PUBLIC__/images/icon/info.png" width="16" height="16" /> 未发货订单</a></li>
+				<li {if strpos($_SERVER['REQUEST_URI'],'yf')} class="on"{/if}><a href="{F:url('manage/index?action=yf&do=yes')}"><img src="__PUBLIC__/images/icon/arrow.png" width="16" height="16" /> 已发货订单</a></li>
+				<li {if strpos($_SERVER['REQUEST_URI'],'qs')} class="on"{/if}><a href="{F:url('manage/index?action=qs&do=yes')}"><img src="__PUBLIC__/images/icon/lightbulb.png" width="15" height="16" /> 已签收订单</a></li>
+                <li {if strpos($_SERVER['REQUEST_URI'],'th')} class="on"{/if}><a href="{F:url('manage/index?action=th&do=yes')}"><img src="__PUBLIC__/images/icon/delete.png" width="16" height="16" /> 退货订单</a></li>
+                <li {if strpos($_SERVER['REQUEST_URI'],'kjs')} class="on"{/if}><a href="{F:url('manage/index?action=kjs&do=yes')}"><img src="__PUBLIC__/images/icon/table-information.png" width="16" height="16" /> 可结算订单</a></li>
+				<li {if strpos($_SERVER['REQUEST_URI'],'yjs')} class="on"{/if}><a href="{F:url('manage/index?action=yjs&do=yes')}"><img src="__PUBLIC__/images/icon/select_icon.png" width="16" height="16" /> 已结算订单</a></li>
+				
+      </ul>
+      <h6 class="title">财务管理</h6>
+          <ul>
+           	  <li {if strpos($_SERVER['PHP_SELF'],'accounts/index')} class="on"{/if}><a href="{F:url('accounts/index')}"><img src="__PUBLIC__/images/icon/m_4.png" width="16" height="14" /> 申请结算</a></li>
+
+              <li {if strpos($_SERVER['PHP_SELF'],'accounts/log')} class="on"{/if}><a href="{F:url('accounts/log')}"><img src="__PUBLIC__/images/icon/m_8.png" width="16" height="16" /> 结算记录</a></li>
+
+          </ul>
+      <span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+</div>

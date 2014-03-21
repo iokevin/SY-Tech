@@ -1,0 +1,54 @@
+{include file="header"}
+<div id="memberArea">
+{include file="left"}
+    <div class="col-auto">
+	
+
+	
+
+   
+    	
+        	<div class="col-1">
+        	<h6 class="title"><font color="#ff9900">最新公告</font></h6>
+            	<div class="content">
+          
+                
+
+                    <p class="blue">
+					  {$SCRAP.about}
+
+                      </p>
+                   
+           	  </div>
+
+            	<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+            </div>
+            <div class="bk10"></div>
+        
+            <div class="col-1 ">
+            	<h5 class="title">最近登录记录</h5>					
+            	<?php
+					$data = module('left')->index();
+					?>
+            	<div class="content">
+					
+                    <ul class="title-list">
+					{loop $data $vo}
+                    	<li>·<a href="#">【时间】:{$vo.time time="Y-m-d H:i:s"}</a><span><a href="#">【IP地址】:{$vo.ip}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【来自】:{$vo.address}</a></span></li>
+                    {/loop}
+                    </ul>
+				
+            	</div>
+            					<div class="content">
+					<font color="#ff9900"><b>安全提示:</b></font>
+					<br />
+					<font color="Red">如果发现不是自己登录的,请速改密码。</font>
+				</div>
+            	<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+            </div>
+        </div>
+  
+    <div class="clear"></div>
+</div>
+
+{include file="footer"}

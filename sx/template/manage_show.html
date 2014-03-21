@@ -1,0 +1,122 @@
+{include file="header"}
+<div id="memberArea">
+{include file="left"}
+<div class="col-auto">
+	
+
+		
+	<div class="col-1 ">
+		<h5 class="title">订单详细信息</h5>
+		<div class="content">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+						<th width="120">收货人：</th>        
+						<td>{$data.shouhuoren}</td>
+					</tr>
+					<tr>
+						<th width="120">收货人地址：</th>        
+						<td>{$data.address}</td>
+					</tr>
+					<tr>
+						<th width="120">货物详情：</th>        
+						<td>{$data.chanpin}</td>
+					</tr>
+					<tr>
+						<th width="120">电话号码：</th>        
+						<td>{$data.dianhua}</td>
+					</tr>
+					<tr>
+						<th width="120">邮编：</th>        
+						<td>{$data.youbian}</td>
+					</tr>
+					<tr>
+						<th width="120">费用：</th>        
+						<td>代收款:{$data.daishoukuan}&nbsp; 批发价:{$data.pifajia}&nbsp; 邮费:{$data.youfei}&nbsp; 代收手续费:{$data.dsshouxufei}&nbsp; 其他费用:{$data.qitafei}</td>
+					</tr>
+					<tr>
+						<th width="120">是否参保:</td>
+						<td>{if $data['canbao']}是{else}否{/if}</td>
+					</tr>
+					<tr>
+						<th width="120">是否短信:</td>
+						<td>{if $data['duanxin']}是{else}否{/if}</td>
+					</tr>
+					<tr>
+						<th width="120">快递公司:</td>
+						<td>{$data.wuliu}</td>
+					</tr>
+					<tr>
+						<th width="120">物流单号:</td>
+						<td>{$data.wuliudanhao}</td>
+					</tr>
+					{if $data['wuliu']=='顺丰COD' || $data['wuliu']=='宅急送COD'}
+					<tr>
+						<th width="120">LC号:</td>
+						<td>{$data.alicod}</td>
+					</tr>
+					{/if}
+					<tr>
+						<th width="120">发货时间:</td>
+						<td>{$data.fahuotime}</td>
+					</tr>
+					<tr>
+						<th width="120">结算时间:</td>
+						<td>{if $data['jiesuanid'] == 0}还没有结账{else}<a href="{F:url('accounts/more')}?id={$data.jiesuanid}">编号 {$data.jiesuanid}</a> 结算时间<?php $history = $model->table('history')->where('id='.$data['jiesuanid'])->find();?>{$history.time time="Y-m-d H:i:s"}{/if}</td>
+					</tr>
+					<tr>
+						<th width="120">结账:</td>
+						<td>{$data.yingli}</td>
+					</tr>
+					<tr>
+						<th width="120">状态:</td>
+						<td>
+							<?php
+					switch ($data['isfahuo']){
+						case '0':
+						$data['isfahuo'] = "未发货";
+					break;
+						case '1':
+						$data['isfahuo'] = "已发货";
+					break;
+						case '2':
+						$data['isfahuo'] = "退货";
+					break;
+						case '3':
+						$data['isfahuo'] = "成功";
+					break;
+						default:
+						$data['isfahuo'] = "未发货";
+					break;
+					}
+
+					switch ($data['isjiesuan']){
+						case '0':
+						$data['isjiesuan'] = "未结算";
+					break;
+						case '1':
+						$data['isjiesuan'] = "已结算";
+					break;
+						default:
+						$data['isjiesuan'] = "未结算";
+					break;
+        			}
+       				?>
+							{$data.isfahuo}-{$data.isjiesuan}</td>
+					</tr>
+					<tr>
+						<th width="120">备注:</td>
+						<td>{F:strip_tags($data['beizhu'])}</td>
+					</tr>
+					<tr>
+						<th width="120"></td>
+						<td><input type="button" value="返回上一页" onclick="javascript:window.history.go(-1);"></td>
+					</tr>
+
+				</table>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+{include file="footer"}

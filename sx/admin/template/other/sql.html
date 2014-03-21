@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('#cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+  .subnav a{border: 1px solid #ccc;padding: 5px 10px;}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div class="subnav">
+  <a href="{F:url('other/sql?save=yes')}">备份数据库</a> <font color="red">备份文件在/admin/data/dbbak/</font>
+</div>
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+      <th>备份</th>
+      <th>备份时间</th>
+      <th>大小</th>
+      <th width="100">管理</th>
+      </tr>
+      </thead>
+      <tbody>
+        {loop $data $k $vo}
+        <tr>
+          <td align="center" width="300">{$vo}</td>
+          <td align="center">{F:date('Y-m-d H:i:s',filemtime($path.$vo))}</td>
+          <td align="center">{F:format_bytes(filesize($path.$vo))}</td>
+          <td align="center"><a onclick="return confirm('确认要还原备份 『 {$vo} 』 吗？')" href="__URL__/recover?name={$vo}">还原</a> <a onclick="return confirm('确认要删除备份 『 {$vo} 』 吗？')" href="__URL__/del?name={$vo}">删除</a></td>
+        </tr>
+        {/loop}
+      </tbody>
+  </table>
+<div id="pages">{$page}</div>
+</div>
+</body></html>

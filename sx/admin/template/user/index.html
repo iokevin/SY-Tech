@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    <form action="{F:url('user/index')}" method="get">
+     <input type="text" size="30" name="user" value="{$_GET['user']}"/><input class="Ybutton" type="submit" value="搜索" />
+     <input type="hidden" name="do" value="yes"/>
+     用户名尽量使用字母加数字，用户昵称可以是汉字
+     </form>
+    </div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+      <th>编号</th>
+			<th>用户名</th>
+			<th>姓名</th>
+      <th>会员等级</th>
+			<th>结算总额</th>
+			<th>已发货</th>
+			<th>是否审核</th>
+			<th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+    {loop $data $vo}
+	     <tr>
+      <td>{$vo.id}</td>
+      <td><a href="{F:url('user/viewdd?id='.$vo['id'].'&u='.$vo['username'])}">{$vo.username}</a></td>
+      <td>{$vo.xingming}</td>
+      <td>
+		<?php
+		//计算等级
+		$lv_arr = array();
+		foreach ($lv as $k => $v) {
+			$k = 20+$k;
+			$lv_arr[$k] = $v;
+		}
+		echo $lv_arr[$vo['dengji']];
+		?>
+      </td>
+      <td>
+      	<?php
+      	$jiesuan = $model->table('history')->where("userid='$vo[id]'")->select();
+      	$num = 0;
+      	if(is_array($jiesuan)){
+      	foreach ($jiesuan as $k=>$v) {
+      		$num += $jiesuan[$k]['money'];
+      	}
+      }
+      	?>
+		{$num}
+      </td>
+      <td>
+		<?php
+      	echo $fahuo_num = $model->table('order')->where("userid='$vo[id]' AND isfahuo >= 1")->count();
+      	?>
+      </td>
+      <td>
+		{if $vo['jh'] == 0}<font color="green">已审核</font>{elseif $vo['jh'] == 1}<font color="red">未审核</font>{elseif $vo['jh'] == 2}<font color="blue">VIP</font>{elseif $vo['jh'] == 4}<b>黑名单</b>{/if}
+      </td>
+      <td><a href="__URL__/edit-{$vo.id}">编辑</a> <a onclick="return confirm('确认要删除用户 『 {$vo['username']} 』 吗？')" href="__URL__/del-{$vo.id}">删除</a></td>
+      </tr>
+    {/loop}
+      </tbody>
+    </table>
+    <div class="btn">
+	</div>
+    <div id="pages">{$page}</div>
+</div>
+</div>
+</body></html>

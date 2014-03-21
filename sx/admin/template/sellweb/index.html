@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href="__URL__/add" class='add fb'><em>发布销售网络</em></a>
+        <!-- <a href="__APP__{$vo['add_url']}-{$vo['id']}" class='on'><em>{$vo['add_name']}</em></a> -->
+    </div>
+</div>
+<!-- <div class="content-menu ib-a blue line-x">
+<a class="add fb" href="javascript:;" onclick="javascript:openwinx('?m=content&c=content&a=add&menuid=&catid=6&pc_hash=GLRHLk','')"><em>添加内容</em></a>　
+<a href="?m=content&c=content&a=init&catid=6&pc_hash=GLRHLk" class="on"><em>审核通过</em></a><span>|</span>
+ <a href="javascript:;" onclick="javascript:$('#searchid').css('display','');"><em>搜索</em></a> 
+</div> -->
+<form name="myform" id="myform" action="dels" method="post">
+<div class="table-list">
+    <table width="100%">
+        <thead>
+        	
+            <tr>
+			 <th width="5%"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+            <th width="5%">ID</th>
+			<th width="15%">省份</th>
+			<th width="40%">信息</th>
+            <th width="15%">发布时间</th>
+			<th width="20%">管理操作</th>
+            </tr>
+        </thead>
+<tbody>
+	
+	<?php if(!empty($info)) foreach($info as $vo){?>
+           <tr>
+		<td align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox"></td>
+        <!-- <td align="center"><input name="listorders[1]" type="text" size="3" value="0" class="input-text-c input-text"></td> -->
+		<td align="center">{$vo['id']}</td>
+		<td align="center">
+		<a href="javascript:void(0);" target="_blank"><span style="">{$vo['name']}</span></a> </td>
+		<td align="center"><?php echo strip_tags(html_out($vo['info'])) ?></td>
+		<td align="center">{$vo['addtime']}</td>
+		<td align="center">
+		<a href="__URL__/edit-{$vo['id']}">修改</a>|
+		<a onclick="return confirm('确认要删除 『 {$vo['name']} 』 吗？')" href="__URL__/del-{$vo['id']}">删除</a>
+		</td>
+	</tr>
+	<?php } ?>
+     </tbody>
+     </table>
+    <div class="btn"><label for="check_box">全选/取消</label>
+			<input type="hidden" value="true" name="do">
+				<input type="submit" class="button" value="删除" >
+<!-- 			<input type="button" class="button" value="推送" onclick="push();">
+				<input type="button" class="button" value="批量移动" onclick="myform.action='?m=content&c=content&a=remove&catid=6';myform.submit();"> -->
+			</div>
+    <div id="pages">{$page}</div>
+</div>
+</form>
+</div>
+</body></html>

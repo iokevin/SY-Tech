@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+  #shenqing tr td textarea {width:300px;height:38px}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+      <th>编号</th>
+			<th>用户名</th>
+			<th>留言内容</th>
+      <th>提交时间</th>
+			<th>处理结果</th>
+			<th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+    {loop $data $vo}
+	     <tr>
+      <td>{$vo.aid}</td>
+      <td>{$vo.username} {$vo.xingming}</td>
+      <td>{F:text_out($vo['liuyan'])}</td>
+      <td>{$vo.time time="Y-m-d H:i:s"}</td>
+      <td>{if $vo['zhuangtai'] == 0}<a onclick="return confirm('确认要处理此条结账申请吗？')" href="{F:url('apply/shenqing?id='.$vo[aid].'&action=chuli')}" style="color:red">未处理</a>{elseif  $vo['zhuangtai'] == 1}<font color="green">已处理</font>{/if}</td>
+      <td><a href="__URL__/shenqing?id={$vo.aid}&action=xxi">详细</a> <a onclick="return confirm('确认要删除 『 {$vo['username']} 』 的此条结账申请吗？')" href="__URL__/del-{$vo.aid}">删除</a></td>
+      </tr>
+    {/loop}
+      </tbody>
+    </table>
+    <div class="btn">
+	</div>
+  {if $_GET['action']=='xxi'}
+  <form action="{F:url('apply/shenqing')}" method="post">
+  <table id="shenqing">
+    <tr>
+      <td>用户留言:</td>
+      <td><textarea name="liuyan" id="" >{F:text_out($xxi['liuyan'])}</textarea></td>
+    </tr>
+    <tr>
+      <td>管理备注:</td>
+      <td><textarea name="huifu" id="" >{F:text_out($xxi['huifu'])}</textarea></td>
+    </tr>
+    <tr>
+      <td>处理结果:</td>
+      <td><select name="zhuangtai">
+ <option value="0" {if $xxi['zhuangtai'] == 0}selected{/if}>等待处理</option>
+ <option value="1" {if $xxi['zhuangtai'] == 1}selected{/if}>已经处理</option>
+     </select></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="hidden" name="do" value="yes"/>
+        <input type="hidden" name="id" value="{$_GET['id']}"/>
+        <input class="Ybutton" type="submit" value="提交" /></td>
+    </tr>
+  </table>
+  </form>
+  {/if}
+    <div id="pages">{$page}</div> 
+</div>
+</div>
+</body></html>

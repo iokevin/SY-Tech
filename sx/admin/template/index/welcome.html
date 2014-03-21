@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div style="_margin-right:-12px;_width:98.9%;" class="pad-10" id="main_frameid">
+<div id="browserVersionAlert" style="display:none" class="explain-col mb10">
+使用IE8浏览器可获得最佳视觉效果</div>
+<div style="width:40%" class="col-2 rf mr10">
+	<h6>我的个人信息</h6>
+	<div class="content">
+	您好，{$_SESSION['admin_username']}<br>
+	所属角色：{$name} <br>
+	<div class="bk20 hr"><hr></div>
+	上次登录时间：<?php echo date('Y-m-d H:i:s', $data['login_time']) ?><br>
+	上次登录IP：{$data['login_ip']} <br>
+	</div>
+</div>
+<br />
+<div style="width:40%" class="col-2 lf mr10">
+	<h6>系统信息</h6>
+	<div class="content">
+	操作系统: {PHP_OS}<br>
+	服务器时间: {F:date("Y-m-d G:i T",time())}<br>
+	服务器语言: {F:getenv("HTTP_ACCEPT_LANGUAGE")} <br>
+	图像处理支持: <?php if(function_exists("imageline")==1){echo '<font color=green><b>√</b></font>';} else {echo '<font color=red><b>×</b></font>';} ?><br>
+	<div class="bk20 hr"><hr></div>
+	WEB服务器: {$_SERVER['SERVER_SOFTWARE']}<br>
+	PHP版本: {PHP_VERSION}<br>
+	MYSQL版本: {F:mysql_get_server_info()}<br>
+	脚本运行内存: <?php echo get_cfg_var("memory_limit")?get_cfg_var("memory_limit"):"无" ; ?><br>
+	脚本超时时间: {F:get_cfg_var("max_execution_time")}s<br>
+	上传大小限制: <?php echo get_cfg_var("upload_max_filesize")?get_cfg_var("upload_max_filesize"):"不允许上传文件" ; ?><br>
+	</div>
+</div>
+
+<div class="bk10"></div>
+</div>
+</div>
+</body></html>

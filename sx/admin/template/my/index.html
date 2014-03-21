@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+
+</head>
+<body style="padding:10px">
+<form id="myform" method="post" action="index">
+<div class="bk10"></div>
+<fieldset>
+  <legend>个人信息</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80">姓名：</th>
+    <td class="y-bg"><input type="text" value="{$info['name']}" size="30" id="name" name="name" class="input-text">
+  </tr>
+  <tr>
+    <th width="80">email：</th>
+    <td class="y-bg"><input type="text" value="{$info['email']}" size="30" id="name" name="email" class="input-text">
+  </tr>
+  <tr>
+    <th width="80">QQ号码：</th>
+    <td class="y-bg"><input type="text" value="{$info['qq']}" size="30" id="name" name="qq" class="input-text">
+  </tr>
+  <tr>
+    <th>旺旺号码：</th>
+    <td class="y-bg"><input type="text" value="{$info['wangwang']}" size="30" id="name" name="wangwang" class="input-text">
+  </tr>
+   <tr>
+    <th>电话：</th>
+    <td class="y-bg"><input type="text" value="{$info['phone']}" size="30" id="name" name="phone" class="input-text">
+  </tr>
+   <tr>
+    <th>传真：</th>
+    <td class="y-bg"><input type="text" value="{$info['fax']}" size="30" id="name" name="fax" class="input-text">
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk15"></div>
+<fieldset>
+<input type="hidden" name="do" value="yes">
+<input type="submit" value="提交" name="dosubmit" id="dosubmit" class="Ybutton">
+</fieldset>
+</form>
+</body>
+</html>

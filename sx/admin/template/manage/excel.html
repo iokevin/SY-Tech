@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('.cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+     <form action="{F:url('manage/excel')}">
+     <select name="isfahuo" onchange="location.href=this.value">
+   <option value="{F:url('manage/excel?username='.$_GET['username'].'&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}">发货状态</option>
+   <option value="{F:url('manage/excel?username='.$_GET['username'].'&f=9&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}" {if $_GET['f'] == 9}selected{/if}>未发货</option>
+   <option value="{F:url('manage/excel?username='.$_GET['username'].'&f=1&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}" {if $_GET['f'] == 1}selected{/if}>已发货</option>
+   <option value="{F:url('manage/excel?username='.$_GET['username'].'&f=2&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}" {if $_GET['f'] == 2}selected{/if}>退货</option>
+   <option value="{F:url('manage/excel?username='.$_GET['username'].'&f=3&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}" {if $_GET['f'] == 3}selected{/if}>成功</option>
+ </select>
+
+ <select name="wuliu" onchange="location.href=this.value">
+    <option value="{F:url('manage/excel?username='.$_GET['username'].'&f='.$_GET['f'].'&do=yes')}">请选择快递</option>
+    {loop $post $key $vo}
+      <option value="{F:url('manage/excel?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$vo.'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}" {if $_GET['w'] == $vo}selected{/if}>{$vo}</option>
+    {/loop}
+  </select>
+     <input name="username" type="text" value="{$_GET['username']}"/>
+     <input type="text" size="10" name="i" value="{$_GET[i]}"/> 到 <input type="text" size="10" name="a" value="{$_GET['a']}"/>
+     <input class="cal" type="text" name="itime" size="12" value="{$_GET['itime']}"/>~
+     <input class="cal" type="text" name="atime" size="12" value="{$_GET['atime']}"/>
+     <input type="hidden" name="do" value="yes"/>
+     <input class="Ybutton" type="submit" value="提交" />
+     <a id="excel" href="{F:url('manage/excel?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&save=all')}"><img src="__PUBLIC__/images/excel.gif" alt="" />导出为Excel</a>
+     <input type="hidden" name="f" value="{$_GET['f']}"/>
+     <input type="hidden" name="w" value="{$_GET['w']}"/>
+     </form>
+    </div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<form name="myform" id="myform" action="dels" method="post">
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+      <th>编号</th>
+      <th>发货日期</th>
+			<th>客户</th>
+			<th>产品</th>
+			<th>代收款</th>
+			<th>收货人</th>
+			<th>收货地址</th>
+			<th>电话</th>
+			<th>快递</th>
+			<th>物流单号</th>
+			<th>批发价</th>
+			<th>邮费</th>
+			<th>状态</th>
+      </tr>
+      </thead>
+      <tbody>
+    {loop $data $vo}
+	  <tr>
+      <td>{$vo.aid}</td>
+      <td>{$vo.fahuotime}</td>
+      <td>{$vo.username}</td>
+      <td>{$vo.chanpin}</td>
+      <td>{$vo.daishoukuan}</td>
+      <td>{$vo.shouhuoren}</td>
+      <td>{F:msubstr($vo['address'],0,6)}</td>
+      <td>{php echo cp_decode($vo['tel'],'Nan')}</td>
+      <td>{$vo.wuliu}</td>
+      <td>{$vo.wuliudanhao}</td>
+      <td>{$vo.pifajia}</td>
+      <td>{$vo.youfei}</td>
+      <td>
+         <?php
+      switch ($vo['isfahuo']){
+            case '0':
+            $vo['isfahuo'] = "未发货";
+          break;
+            case '1':
+            $vo['isfahuo'] = "已发货";
+          break;
+            case '2':
+            $vo['isfahuo'] = "退货";
+          break;
+            case '3':
+            $vo['isfahuo'] = "成功";
+          break;
+            default:
+            $vo['isfahuo'] = "未发货";
+          break;
+        }
+        ?>
+        {$vo.isfahuo}</td>
+      </tr>
+    {/loop}
+      </tbody>
+    </table>
+<div id="pages">{$page}</div>
+</div>
+</form>
+</div>
+</body></html>

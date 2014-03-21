@@ -1,0 +1,111 @@
+{include file="header"}
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgdialog.min.js?skin=chrome"></script>
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('manage/add')}"><img src="__PUBLIC__/images/t_add.jpg" alt=""></a><a href="">添加订单</a></li>
+					<li><a href="{F:url('manage/index')}"><img src="__PUBLIC__/images/t_ddall.jpg" alt=""></a><a href="">所有订单</a></li>
+					<li><a href="{F:url('manage/index?action=wf&do=yes')}"><img src="__PUBLIC__/images/t_wfh.jpg" alt=""></a><a href="">未发货订单</a></li>
+					<li><a href="{F:url('manage/index?action=yf&do=yes')}"><img src="__PUBLIC__/images/t_yfh.jpg" alt=""></a><a href="">已发货订单</a></li>
+					<li><a href="{F:url('manage/index?action=qs&do=yes')}"><img src="__PUBLIC__/images/t_yqs.jpg" alt=""></a><a href="">已签收订单</a></li>
+					<li><a href="{F:url('manage/index?action=th&do=yes')}"><img src="__PUBLIC__/images/t_thjs.jpg" alt=""></a><a href="">退货订单</a></li>
+					<li><a href="{F:url('manage/index?action=kjs&do=yes')}"><img src="__PUBLIC__/images/t_kjs.jpg" alt=""></a><a href="">可结算记录</a></li>
+					<li><a href="{F:url('manage/index?action=yjs&do=yes')}"><img src="__PUBLIC__/images/t_yjs.jpg" alt=""></a><a href="">已结算订单</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 订单管理</h1>
+				<div id="search">
+					<form action="{F:url('manage/index')}" method="get">
+					<input name="keyword" id="keyword" type="text" size="25" value="{$_GET['keyword']}" />
+					<input type="hidden" name="do" value="yes">
+					<input id="submit" type="submit" value="" />
+					</form>
+				</div>
+				<table id="dingdan" class="table_list">
+					<tr>
+						<th>编号</th>
+						<th>收货人</th>
+						<th>快递公司</th>
+						<th>发货单号</th>
+						<th>发货日期</th>
+						<th>代收款</th>
+						<th>批发价</th>
+						<th>邮费</th>
+						<th>结账</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					{if empty($data)}
+					<tr id="empty">
+						<td colspan="11">没有记录</td>
+					</tr>
+					{else}
+					{loop $data $key $vo}
+					<tr>
+						<td>{php echo $key+1}</td>
+						<td>{$vo.shouhuoren}</td>
+						<td>{$vo.wuliu}</td>
+						<td>
+						{if !empty($vo['wuliudanhao'])}
+							{loop $post $k $v}
+						      {if $vo['wuliu']==$v}
+						        <a onclick="urldialog('查询物流结果','__URL__/kuaidi100?com={$postapi[$k]}&nu={$vo.wuliudanhao}')" href="javascript:;">{$vo.wuliudanhao}</a>
+						      {/if}
+						    {/loop}
+						{/if}
+						</td>
+						<td>{$vo.fahuotime}</td>
+						<td>{$vo.daishoukuan}</td>
+						<td>{$vo.pifajia}</td>
+						<td>{$vo.youfei}</td>
+						<td>{$vo.yingli}</td>
+						<td>
+					<?php
+					switch ($vo['isfahuo']){
+						case '0':
+						$vo['isfahuo'] = "未发货";
+					break;
+						case '1':
+						$vo['isfahuo'] = "已发货";
+					break;
+						case '2':
+						$vo['isfahuo'] = "退货";
+					break;
+						case '3':
+						$vo['isfahuo'] = "成功";
+					break;
+						default:
+						$vo['isfahuo'] = "未发货";
+					break;
+					}
+
+					switch ($vo['isjiesuan']){
+						case '0':
+						$vo['isjiesuan'] = "未结算";
+					break;
+						case '1':
+						$vo['isjiesuan'] = "已结算";
+					break;
+						default:
+						$vo['isjiesuan'] = "未结算";
+					break;
+        			}
+       				?>
+							{$vo.isfahuo}-{$vo.isjiesuan}</td>
+						<td><a href="{F:url('manage/show',array('id'=>$vo['id']))}">详情</a></td>
+					</tr>
+					{/loop}
+					{/if}
+				</table>
+				<div class="page">{$page}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

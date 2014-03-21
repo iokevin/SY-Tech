@@ -1,0 +1,111 @@
+{include file="header"}
+<div id="memberArea">
+{include file="left"}
+<div class="col-auto">
+<div class="col-1 ">
+<h6 class="title">申请结算</h6>
+<div class="content">
+<table width="100%" cellspacing="0"  class="table-list">
+        <thead>
+            <tr>
+            <th>收货人</th>
+            <th>发货日期</th>
+            <th>物流</th>
+            <th>物流单号</th>
+            <th>代收款</th>
+            <th>批发价</th>
+            <th>邮费</th>
+            <th>代收手续费</th>
+            <th>其它费用</th>
+            <th>结账</th>
+            <th>状态</th>
+            </tr>
+        </thead>
+    <tbody>
+{loop $data $vo}
+					<tr align="center">
+						<td>{$vo.shouhuoren}</td>
+						<td>{$vo.fahuotime}</td>
+						<td>{$vo.wuliu}</td>
+						<td>{$vo.wuliudanhao}</td>
+						<td>{$vo.daishoukuan}</td>
+						<td>{$vo.pifajia}</td>
+						<td>{$vo.youfei}</td>
+						<td>{$vo.dsshouxufei}</td>
+						<td>{$vo.qitafei}</td>
+						<td>{$vo.yingli}</td>
+						<td>
+						<?php
+					      switch ($vo['isfahuo']){
+					            case '0':
+					            $vo['isfahuo'] = "未发货";
+					          break;
+					            case '1':
+					            $vo['isfahuo'] = "已发货";
+					          break;
+					            case '2':
+					            $vo['isfahuo'] = "退货";
+					          break;
+					            case '3':
+					            $vo['isfahuo'] = "成功";
+					          break;
+					            default:
+					            $vo['isfahuo'] = "未发货";
+					          break;
+					        }
+
+					        switch ($vo['isjiesuan']){
+					            case '0':
+					            $vo['isjiesuan'] = "未结算";
+					          break;
+					            case '1':
+					            $vo['isjiesuan'] = "已结算";
+					          break;
+					            default:
+					            $vo['isjiesuan'] = "未结算";
+					          break;
+					        }
+					        $bianhao .= $vo['id']."|";
+					        $heji += $vo['yingli'];
+					       ?>
+						{$vo.isfahuo}-{$vo.isjiesuan}</td>
+					</tr>
+					{/loop}
+					{if empty($data)}
+					<tr id="empty" align="center">
+						<td colspan="11">没有可结算订单</td>
+					</tr>
+					{/if}
+    </tbody>
+    </table>
+</div>
+<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+</div>
+
+<div class="col-1 ">
+			<!--<h5 class="title">可结算的订单编号:{$bianhao}</h5>     -->
+			<h5 class="title">可结算合计: <font color="Red">{$heji}</font>&nbsp;元</h5>        
+			<div class="content">			
+			<form method="post" action="{F:url('accounts/index')}" id="myform" name="myform">
+				<table width="100%" cellspacing="0" class="table_form">
+					
+					<tr>
+						<th width="100">申请结算留言:</th> 
+						<td><textarea name="liuyan" id="" cols="68" rows="8">{F:text_out($yinhang['yinhang'])}</textarea><br><font color="Red">*请提供打款账号及收款人姓名，认真核实信息，确保提现款项能及时到账。</font></td>
+					</tr>			
+					<tr>
+						<th></th>
+						<input type="hidden" name="do" value="yes">
+						<td><div class="submit" style="width:40px"><input name="dosubmit" type="submit" onClick="return window.confirm('确定现在提现吗？');" id="dosubmit" value=" 提 交 "></div></td>
+					</tr>
+				</table>
+			</form>
+
+			</div>
+			<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+		</div>
+
+
+</div>
+</div>
+{include file="footer"}

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+  .group_con {float: left;height: 25px;line-height: 25px;width: 120px;}
+  fieldset {margin-bottom: 20px;}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+   <a href="__URL__/group?action=manage" class="add fb"><em>权限组管理</em></a>
+    
+    </div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<div class="table-list">
+  {if $_GET['action']=='manage'}
+   <table width="100%">
+      <thead>
+      <tr>
+      <th width="50">编号</th>
+      <th style="text-align: center">组名</th>
+      <th width="100">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+        {loop $group $vo}
+      <tr>
+        <td>{$n}</td>
+        <td align="center">{$vo.name}</td>
+        <td><a href="__URL__/group?action=del&id={$vo.id}">删除</a></td>
+      </tr>
+      {/loop}
+      </tbody>
+    </table>
+    {/if}
+<br />
+<form action="{F:url('admin/group')}" method="post">
+<table width="100%">
+<tr>
+  <td width="100">权限组名</td>
+  <td><input type="text" name="name" id="" /></td>
+</tr>
+<tr>
+  <td width="100">管理权限</td>
+  <td>
+  <fieldset>
+  <legend>订单管理</legend>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="81">订单管理</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="82">添加订单</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="83">编辑订单</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="84">今日订单</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="85">导出单号</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="86">批量设置</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="87">excel导出</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="88">订单删除</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="89">批量删除</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="180">打印订单</div>
+  </fieldset>
+   <fieldset>
+  <legend>会员管理</legend>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="162">会员列表</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="163">编辑会员</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="164">添加会员</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="165">未审核会员</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="166">会员删除</div>
+  </fieldset>
+  <fieldset>
+  <legend>结账管理</legend>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="11">结账操作</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="12">结账申请</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="13">历史结账</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="15">结账申请删除</div>
+  </fieldset>
+  <fieldset>
+  <legend>管理员管理</legend>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="2">管理员设置</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="3">编辑管理员</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="4">登录日志</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="5">管理员权限重置</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="6">权限管理</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="7">管理员删除</div>
+  </fieldset>
+  <fieldset>
+  <legend>其它管理</legend>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="137">碎片管理</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="139">添加碎片</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="140">编辑碎片</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="141">碎片删除</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="142">批量删除碎片</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="175">数据库备份</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="178">还原数据库备份</div>
+  <div class="group_con"><input name="power[]" class="check1" type="checkbox" value="178">数据库备份删除</div>
+  </fieldset>
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td><input type="checkbox" id="check_box" onclick="selectall('power[]');"/><label for="check_box">全选/取消</label>
+    <input type="hidden" name="do" value="yes"/>
+    <input class="Ybutton" type="submit" name="submit" value="添加"/></td>
+</tr>
+</table>
+</form>   
+</div>
+</div>
+</body></html>

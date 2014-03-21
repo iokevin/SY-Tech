@@ -1,0 +1,25 @@
+		<div class="left">
+			<div class="la">
+				<h1>▎ 账户在线</h1>
+				<div id="la_a">
+				<div id="user">用户名: {$_SESSION['username']}</div>
+				<a href="{F:url('user/index')}">个人资料</a><a href="{F:url('index/logout')}">退 出</a>
+				</div>
+			</div>
+			<div class="la">
+				<h1>▎ 最新登记记录</h1>
+				<ul id="la_b">
+					<?php
+					$data = module('left')->index();
+					?>
+					{loop $data $vo}
+					<li><a href="javascript:;"><font color="#ff9900">▪</font>【时间】:{$vo.time time="Y-m-d H:i:s"}<br />【来自】:{$vo.address}</a></li>
+					{/loop}
+				</ul>
+				<div id="la_c">
+					<font color="#ff9900">安全提示:</font>
+					<br />
+					如果发现不是自己登录的,请速改密码。
+				</div>
+			</div>
+		</div>

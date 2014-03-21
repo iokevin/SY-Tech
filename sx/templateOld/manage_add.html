@@ -1,0 +1,83 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href="{F:url('manage/add')}"><img src="__PUBLIC__/images/t_add.jpg" alt=""></a><a href="">添加订单</a></li>
+					<li><a href="{F:url('manage/index')}"><img src="__PUBLIC__/images/t_ddall.jpg" alt=""></a><a href="">所有订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_wfh.jpg" alt=""></a><a href="">未发货订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yfh.jpg" alt=""></a><a href="">已发货订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yqs.jpg" alt=""></a><a href="">已签收订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_thjs.jpg" alt=""></a><a href="">退货结算</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_kjs.jpg" alt=""></a><a href="">可结算记录</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yjs.jpg" alt=""></a><a href="">已结算订单</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 添加订单</h1>
+				<form action="{F:url('manage/add')}" method="post">
+				<table id="fahuo">
+					<tr>
+						<td width="75" align="right" valign="top">收货人:</td>
+						<td>&nbsp;<input type="text" name="shouhuoren"><span> 收货人信息</span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">收货人地址:</td>
+						<td>&nbsp;<textarea name="address" id="" ></textarea><span> 越详细越好，签收率越高</span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">货物详情:</td>
+						<td>&nbsp;<textarea name="chanpin" id="" ></textarea><span> 产品名称，数量，例：超级P57 1盒 +丰韵丹姿1盒</span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">电话号码:</td>
+						<td>&nbsp;<input type="text" name="dianhua"><span></span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">是否参保:</td>
+						<td id="radio">&nbsp;<label>否</label><input name="canbao" type="radio" value="0" checked><input name="canbao" type="radio" value="1"><label>是</label><span> 仅限EMS，须参保请选是，参保费按货款1%收取，强烈建议参保，请查看帮助中心里EMS参保的好处</span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">短信跟单:</td>
+						<td id="radio">&nbsp;<label>否</label><input name="duanxin" type="radio" value="0"><input name="duanxin" type="radio" value="1" checked><label>是</label><span> 发货提醒，默认选是，可选否，收取短信费1元</span></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">支付方式:</td>
+						<td id="radio">&nbsp;<select name="zhifufangshi" id="">
+							<option value="1">货到付款</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">代收款:</td>
+						<td>&nbsp;<input type="text" name="daishoukuan"></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">快递公司:</td>
+						<td id="radio">&nbsp;<select name="wuliu" id="">
+						{loop $post $key $vo}
+							<option value="{$vo}">{$vo}</option>
+						{/loop}
+						</select></td>
+					</tr>
+					<tr>
+						<td width="75" align="right" valign="top">快递备注:</td>
+						<td>&nbsp;<textarea id="kuaidi" name="beizhu" id="" >商品名称: 网购商品
+售后电话: 
+公司名称: 
+备注信息: 送货前请先电话联系，谢谢！</textarea><br /><span>此为打印在快递单上的信息，请务必写上售后电话，平台不提供售后电话服务</span> </td>
+					</tr>
+					<tr>
+						<td width="75"><input name="do" type="hidden" value="yes"></td>
+						<td><input id="submit" type="submit" value=""></td>
+					</tr>
+				</table>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

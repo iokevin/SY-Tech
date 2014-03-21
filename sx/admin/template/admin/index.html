@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+   
+    </div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<div class="table-list">
+  <table width="100%">
+      <thead>
+      <tr>
+      <th width="70">编号</th>
+      <th>用户名</th>
+      <th>昵称</th>
+      <th>权限组</th>
+      <th width="200">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+        {loop $data $vo}
+        <tr>
+      <td>{$vo.aid}</td>
+      <td>{$vo.username}</td>
+      <td>{$vo.xingming}</td>
+      <td>{$vo.name}</td>
+      <td><a href="__URL__/edit-{$vo['aid']}">编辑</a> <a onclick="return confirm('确认要删除管理员 『 {$vo['username']} 』 吗？')" href="__URL__/del-{$vo['aid']}" >删除</a></td>
+      </tr>
+      {/loop}
+      </tbody>
+</table>
+    <div class="btn">
+      
+			</div>
+      <form action="{F:url('admin/index')}" method="post">
+      <table>
+        <tr>
+          <td width="100">用户名</td>
+          <td><input type="text" name="username" id="" /></td>
+        </tr>
+        <tr>
+          <td>昵称</td>
+          <td><input type="text" name="xingming" id="" /></td>
+        </tr>
+        <tr>
+          <td>密码</td>
+          <td><input type="password" name="password" id="" /></td>
+        </tr>
+        <tr>
+          <td>权限级别</td>
+          <td><select name="groupid" id="groupid">
+            {loop $qx $vo}
+                  <option value="{$vo.id}">{$vo.name}</option>
+            {/loop}
+                </select></td>
+        </tr>
+        <tr>
+          <td></td>
+          <input type="hidden" name="do" value="yes"/>
+          <td><input class="Ybutton" type="submit" name="submit" id="" value="添加"/></td>
+        </tr>
+      </table>
+      </form>
+</div>
+</div>
+</body></html>

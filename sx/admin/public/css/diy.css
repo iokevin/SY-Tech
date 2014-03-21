@@ -1,0 +1,26 @@
+/*DIY*/
+.Ybutton { margin-left:15px; padding: 6px 8px; cursor: pointer; display: inline-block; text-align: center; line-height: 1; *padding:4px 10px; *height:2em; letter-spacing:2px; font-family: Tahoma, Arial/9!important; width:auto; overflow:visible; *width:1; color: #333; border: solid 1px #999; border-radius: 5px; background: #DDD; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); background: linear-gradient(top, #FFF, #DDD); background: -moz-linear-gradient(top, #FFF, #DDD); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#DDD)); text-shadow: 0px 1px 1px rgba(255, 255, 255, 1); box-shadow: 0 1px 0 rgba(255, 255, 255, .7),  0 -1px 0 rgba(0, 0, 0, .09); -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: box-shadow linear .2s; }
+
+/*添加订单*/
+#manage_add {border-collapse:collapse;margin-left: 5px;margin-top:5px;width: 100%}
+#manage_add th,#manage_add td{border-bottom: 1px solid #e5e5e5;padding: 0px 0px 0px 10px;line-height: 40px;}
+#manage_add #r {color: red;}
+#manage_add textarea{width: 400px;height:60px;}
+#manage_add #bt input{margin: 15px 15px 10px 0px;}
+
+/*今日订单*/
+#today {border-bottom: 1px solid #e5e5e5;margin-bottom: 10px;}
+
+/*导出单号*/
+#stdput {width: 300px;height: 500px;}
+
+/*批量设置*/
+#sets #r{color:red;}
+#sets #yiqianshou{background: #ff9955;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff9955', endColorstr='#ff9955');}
+#sets #tuihuo{background: #ff5555;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5555', endColorstr='#ff5555');}
+#sets textarea{width: 300px;height: 500px;float: left}
+
+#sets #std{width: 600px;height: 100%;float: left;border: 1px solid #e5e5e5;margin-left: 30px;height: 500px;}
+
+/*导出Excel*/
+#excel {margin-left: 40px;}

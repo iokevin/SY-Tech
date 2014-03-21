@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('.cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div class="subnav">
+  <form action="{F:url('manage/stdput')}" method="get">
+    <div class="content-menu ib-a blue line-x">
+    <select name="duanxin" size="1" onchange="location.href=this.value">
+      <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}">短信</option>
+      <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin=2&do=yes')}" {if $_GET['duanxin'] == 2}selected{/if}>否</option>
+      <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin=1&do=yes')}" {if $_GET['duanxin'] == 1}selected{/if}>是</option>
+    </select>
+      <select name="isfahuo" onchange="location.href=this.value">
+   <option value="{F:url('manage/stdput?username='.$_GET['username'].'&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}">发货状态</option>
+   <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f=9&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}" {if $_GET['f'] == 9}selected{/if}>未发货</option>
+   <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f=1&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}" {if $_GET['f'] == 1}selected{/if}>已发货</option>
+   <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f=2&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}" {if $_GET['f'] == 2}selected{/if}>退货</option>
+   <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f=3&w='.$_GET['w'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}" {if $_GET['f'] == 3}selected{/if}>成功</option>
+ </select>
+
+ <select name="wuliu" onchange="location.href=this.value">
+    <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f='.$_GET[f].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&do=yes')}">请选择快递</option>
+    {loop $post $key $vo}
+      <option value="{F:url('manage/stdput?username='.$_GET['username'].'&f='.$_GET[f].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&duanxin='.$_GET['duanxin'].'&w='.$vo.'&do=yes')}" {if $_GET['w'] == $vo}selected{/if}>{$vo}</option>
+    {/loop}
+  </select>
+      &nbsp;&nbsp;<input type="text" name="username" value="{$_GET['username']}"/>
+      <input class="cal input-text" type="text" name="itime" size="12" value="{$_GET['itime']}">~
+      <input class="cal input-text" type="text" name="atime" size="12" value="{$_GET['atime']}">
+      <input class="Ybutton" type="submit" value="导出"/>&nbsp;&nbsp;输入用户名导出单个用户的订单号
+      <input type="hidden" name="do" value="yes"/>
+      <input type="hidden" name="f" value="{$_GET['f']}"/>
+      <input type="hidden" name="w" value="{$_GET['w']}"/>
+      <input type="hidden" name="duanxin" value="{$_GET['duanxin']}"/>
+    </div>
+    </form>
+</div>
+<textarea name="" id="stdput" cols="30" rows="10">
+{loop $data $vo}
+{$vo.wuliudanhao}
+
+{/loop}
+</textarea>
+{if $_GET['duanxin'] == 1}
+<textarea name="" id="stdput" cols="30" rows="10" style="width:500px">
+{loop $data $vo}
+订单号:{$vo.wuliudanhao}    手机号:{F:cp_decode($vo['adianhua'],'Nan')}
+
+{/loop}
+</textarea>
+{/if}共有{$count}条记录
+<div id="pages">{$page}</div>
+</div>
+</body></html>

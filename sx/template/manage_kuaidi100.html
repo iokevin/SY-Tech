@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>快递100 查询</title>
+<script language="javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+	<script language="javascript">
+	$(document).ready(function()
+	{
+		$("#btnSnap").click(function()
+		{
+			$("#retData").html('loading...');
+ 
+			var expressid = $("#expressid").val();
+            var expressno = $("#expressno").val();
+			$.get("get.php",{com:expressid,nu:expressno},
+				function(data)
+				{
+//					$("#retData").html(data);
+//
+//					var retData = eval(data);
+//					var retMsg = '';
+//					var j = 0;
+//
+//					for (var i=0;i<retData.length;i++)
+//					{
+//						if (i == retData.length -1)
+//						{
+//							retMsg += "<font color='#CC0000'>" + retData[i].item + "</font><br/>";
+//						}else{
+//							retMsg += retData[i].item + "<br/>";
+//						}
+//					}
+//					
+					$("#retData").html(data);
+				}
+			);
+ 
+			return false;
+		});
+	});
+	</script>
+<style> 
+	#retForm{width:640px;line-height:22px;padding-bottom:10px;border-bottom:1px dotted #ccc;}
+	#retData{
+	background:#efefef;
+	padding:10px;
+	line-height:18px;
+	width: 96%;
+	border: 0;
+}
+	.txtPartner{width:960px;margin:20px 10px;padding:10px 0 0 0;border-top:1px solid #dfdfdf;}
+	.txtPartner h1{font-size:14px;color:#FF5632;}
+	.txtPartner a{float:left;margin:0 10px 10px 0;}
+    .logo {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+	font-family: "微软雅黑";
+}
+    .txtURL {
+	font-size: 12px;
+	padding: 10px;
+}
+    </style>
+</head>
+<body>
+<div id="retData">
+	{$data}
+</div>
+</body>
+</html>

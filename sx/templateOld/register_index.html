@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>会员注册-诚客代发货平台</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/global.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/main.css">
+</head>
+<script language="javascript">
+//重载验证码
+function fleshVerify()
+{
+var timenow = new Date().getTime();
+document.getElementById('verifyImg').src= '__URL__/verify.html?'+timenow;
+}
+</script>
+<body>
+	<div id="register">
+		<img src="__PUBLIC__/images/reg.jpg" alt="">
+		<form action="{F:url('register/index')}" method="post">
+	<table>
+		<tr>
+			<td width="120" align="right" valign="top"></td>
+			<td>(会员注册页面(电话，QQ，银行信息必须留真实信息，否则不通过审核)</td>
+		</tr>
+		<tr>
+			<td width="120" align="right">用户名:</td>
+			<td><input type="text" name="username"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">密 码:</td>
+			<td><input type="password" name="password"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">昵 称:</td>
+			<td><input type="text" name="xingming"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">性 别:</td>
+			<td id="radio">
+				<label>男 </label>
+				<input name="xingbie" type="radio" value="0" checked>
+				<input name="xingbie" type="radio" value="1" >
+				<label>女</label>
+			</td>
+		</tr>
+		<tr>
+			<td width="120" align="right">手 机:</td>
+			<td><input type="text" name="dianhua"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">QQ:</td>
+			<td><input type="text" name="qq"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">地 址:</td>
+			<td><input type="text" name="dizhi"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">银 行:</td>
+			<td>
+				<textarea name="yinhang" id="">开户行：
+姓名：
+帐号：</textarea>
+				<span>请填工商银行或支付宝</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="120" align="right">申请留言:</td>
+			<td>
+				<textarea name="qita" id=""></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="120" align="right">验证码:</td>
+			<td><input type="text" name="checkcode"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right">换一组:</td>
+			<td><img id="verifyImg" src="__URL__/verify" alt="如果您无法识别验证码，请点图片更换" onclick="fleshVerify()"></td>
+		</tr>
+		<tr>
+			<td width="120" align="right"></td>
+			<td>
+				<input type="hidden" name="do" value="yes">
+				<!-- <input id="submit" type="button" value="登录" onclick="javascript:window.location.href='{F:url('index/login')}'">  --><input id="submit" type="submit" value="注册">
+			</td>
+		</tr>
+	</table>
+	</form>
+	</div>
+</body>
+</html>

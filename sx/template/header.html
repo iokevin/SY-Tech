@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link rel="Shortcut Icon" href="favicon.ico">
+<title>会员中心 - 顺心代发货平台</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/member.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</head>
+<script type="text/javascript">
+	$(document).ready(function(){
+		livetable();
+	});
+</script>
+<body>
+<div id="header">
+	<div class="logo"><a href="{F:url()}"><h3>会员中心</h3></a></div>
+	
+    <div class="link">你好 {$_SESSION['username']}<span> | </span>
+	<a href="{F:url('index/logout')}">安全退出</a>
+	<span> | </span><a href="{F:url()}">首页</a> </div>
+	<div class="nav-bar">
+    	<map>
+        	<ul class="nav-site cu-span">
+			
+				<li>
+		<a href="{F:url()}" {if strpos($_SERVER['PHP_SELF'],'index/index') || !strpos($_SERVER['PHP_SELF'],'index.php/') || strpos($_SERVER['PHP_SELF'],'/index/')}class="on"{/if} ><span>管理中心</span></a>
+				</li>
+				<li class="line">|</li>
+								<li>
+		<a href="{F:url('manage/index')}" {if strpos($_SERVER['PHP_SELF'],'manage')}class="on"{/if} ><span>订单管理</span></a>
+				</li>
+				<li class="line">|</li>
+								<li>
+		<a href="{F:url('accounts/index')}" {if strpos($_SERVER['PHP_SELF'],'accounts') || strpos($_SERVER['PHP_SELF'],'apply')}class="on"{/if} ><span>财务管理</span></a>
+				</li>
+				<li class="line">|</li>
+								<li>
+		<a href="{F:url('user/index')}" {if strpos($_SERVER['PHP_SELF'],'user')}class="on"{/if} ><span>个人信息</span></a>
+				</li>
+					<li class="line">|</li>
+			
+            </ul>
+        </map>
+    </div>
+</div>

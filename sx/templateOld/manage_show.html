@@ -1,0 +1,128 @@
+{include file="header"}
+	<div class="main clearfix" >
+{include file="left"}
+		<div class="right">
+			<div class="edit clearfix">
+				<ul class="clearfix">
+					<li><a href=""><img src="__PUBLIC__/images/t_add.jpg" alt=""></a><a href="">添加订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_ddall.jpg" alt=""></a><a href="">所有订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_wfh.jpg" alt=""></a><a href="">未发货订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yfh.jpg" alt=""></a><a href="">已发货订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yqs.jpg" alt=""></a><a href="">已签收订单</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_thjs.jpg" alt=""></a><a href="">退货结算</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_kjs.jpg" alt=""></a><a href="">可结算记录</a></li>
+					<li><a href=""><img src="__PUBLIC__/images/t_yjs.jpg" alt=""></a><a href="">已结算订单</a></li>
+				</ul>
+			</div>
+			<div class="r_main">
+				<div class="ra">
+				<h1>▎ 订单详细信息</h1>
+				<table id="show">
+					<tr>
+						<td align="right" width="85">收货人:</td>
+						<td>{$data.shouhuoren}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">收货人地址:</td>
+						<td>{$data.address}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">货物详情:</td>
+						<td>{$data.chanpin}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">电话号码:</td>
+						<td>{$data.dianhua}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">邮编:</td>
+						<td>{$data.youbian}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">费用:</td>
+						<td>代收款:{$data.daishoukuan}&nbsp; 批发价:{$data.pifajia}&nbsp; 邮费:{$data.youfei}&nbsp; 代收手续费:{$data.dsshouxufei}&nbsp; 其他费用:{$data.qitafei}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">是否参保:</td>
+						<td>{if $data['canbao']}是{else}否{/if}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">是否短信:</td>
+						<td>{if $data['duanxin']}是{else}否{/if}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">快递公司:</td>
+						<td>{$data.wuliu}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">物流单号:</td>
+						<td>{$data.wuliudanhao}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">发货时间:</td>
+						<td>{$data.fahuotime}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">结算时间:</td>
+						<td>{if $data['jiesuanid'] == 0}还没有结账{else}<a href="__APP__/accounts/more?id={$data.jiesuanid}">编号 {$data.jiesuanid}</a> 结算时间<?php $history = $model->table('history')->where('id='.$data['jiesuanid'])->find();?>{$history.time time="Y-m-d H:i:s"}{/if}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">结账:</td>
+						<td>{$data.yingli}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">状态:</td>
+						<td>
+							<?php
+					switch ($data['isfahuo']){
+						case '0':
+						$data['isfahuo'] = "未发货";
+					break;
+						case '1':
+						$data['isfahuo'] = "已发货";
+					break;
+						case '2':
+						$data['isfahuo'] = "退货";
+					break;
+						case '3':
+						$data['isfahuo'] = "成功";
+					break;
+						default:
+						$data['isfahuo'] = "未发货";
+					break;
+					}
+
+					switch ($data['isjiesuan']){
+						case '0':
+						$data['isjiesuan'] = "未结算";
+					break;
+						case '1':
+						$data['isjiesuan'] = "已结算";
+					break;
+						default:
+						$data['isjiesuan'] = "未结算";
+					break;
+        			}
+       				?>
+							{$data.isfahuo}-{$data.isjiesuan}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85">备注:</td>
+						<td>{F:strip_tags($data['beizhu'])}</td>
+					</tr>
+					<tr>
+						<td align="right" width="85"></td>
+						<td><input type="button" value="返回上一页" onclick="javascript:window.history.go(-1);"></td>
+					</tr>
+					<tr>
+						<td align="right" width="85">&nbsp;</td>
+						<td></td>
+					</tr>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file="footer"}
+</body>
+</html>

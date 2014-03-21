@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('#cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    <a class="Ybutton" href="{F:url('manage/index')}">订单管理</a>
+    <a class="Ybutton" href="{F:url('manage/today')}">今日管理</a>
+    <a class="Ybutton" href="{F:url('user/index')}">会员列表</a>
+    <a class="Ybutton" href="{F:url('apply/shenqing')}">结账申请</a>
+    <a class="Ybutton" href="{F:url('admin/log')}">登录日志</a>
+    </div>
+</div>
+<h5>最近三次登录记录</h5>
+<hr />
+{loop $login_info $vo}
+<div id="today">
+【时间】:{$vo.time time="Y-m-d H:i:s"}【来自】:{$vo.address}
+</div>
+{/loop}
+<div style="float:right;margin-right: 20px;"><a href="{F:url('apply/shenqing')}" style="color:#f95">更多</a></div><h5>最新未处理结算留言</h5>
+<hr />
+<div id="today">
+<div class="table-list">
+<table width="100%">
+	<thead>
+      <tr>
+    <th>编号</th>
+	  <th>留言</th>
+	  <th>时间</th>
+	  <th>操作</th>
+      </tr>
+      </thead>
+      {loop $jiesuan $vo}
+    <tbody>
+	<tr>
+		<td align="center"><img src="__PUBLIC__/images/xin.gif" alt="" /> {$n}</td>
+		<td align="center">{F:text_out($vo['liuyan'])}</td>
+		<td align="center">{$vo.time time="Y-m-d H:i:s"}</td>
+		<td align="center"><a href="{F:url('apply/shenqing?id='.$vo[id].'&action=chuli')}" style="color:red">未处理</a></td>
+	</tr>
+	</tbody>
+	{/loop}
+</table>
+</div>
+</div>
+</div>
+</body></html>

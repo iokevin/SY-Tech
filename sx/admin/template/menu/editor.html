@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+           <!--  <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>内容发布</h3>
+            <ul>
+                <li id="_MP1" class="sub_menu">
+                    <a href="javascript:_MP('1','__APP__/product/add');" hidefocus="true" style="outline:none;">发布产品</a></li>
+                <li id="_MP2" class="sub_menu">
+                    <a href="javascript:_MP('2','__APP__/news/add');" hidefocus="true" style="outline:none;">发布新闻</a></li>
+                <li id="_MP3" class="sub_menu">
+                    <a href="javascript:_MP('3','__APP__/sellweb/add');" hidefocus="true" style="outline:none;">添加销售网点</a></li>
+                 <li id="_MP4" class="sub_menu">
+                    <a href="javascript:_MP('4','__APP__/recruit/recadd');" hidefocus="true" style="outline:none;">发布招聘</a></li>
+            </ul>
+            <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>走进凌玮</h3>
+            <ul>
+                <li id="_MP5" class="sub_menu">
+                    <a href="javascript:_MP('5','__APP__/about/index');" hidefocus="true" style="outline:none;">公司简介</a></li>
+                <li id="_MP6" class="sub_menu">
+                    <a href="javascript:_MP('6','__APP__/about/other');" hidefocus="true" style="outline:none;">公司其它</a></li>
+                <li id="_MP13" class="sub_menu">
+                    <a href="javascript:_MP('13','__APP__/about/qyry');" hidefocus="true" style="outline:none;">企业荣誉</a></li>
+                <li id="_MP14" class="sub_menu">
+                    <a href="javascript:_MP('14','__APP__/about/jcsk');" hidefocus="true" style="outline:none;">精彩时刻</a></li>
+            </ul>
+             <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>技术中心</h3>
+            <ul>
+                <li id="_MP7" class="sub_menu">
+                    <a href="javascript:_MP('7','__APP__/technology/index');" hidefocus="true" style="outline:none;">技术中心介绍</a></li>
+                <li id="_MP8" class="sub_menu">
+                    <a href="javascript:_MP('8','__APP__/technology1/index');" hidefocus="true" style="outline:none;">常见问题解答</a></li>
+                     <li id="_MP12" class="sub_menu">
+                    <a href="javascript:_MP('12','__APP__/technology2/index');" hidefocus="true" style="outline:none;">资料下载</a></li>
+            </ul>
+            <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>营销网络</h3>
+            <ul>
+                <li id="_MP9" class="sub_menu">
+                    <a href="javascript:_MP('9','__APP__/sell/web');" hidefocus="true" style="outline:none;">网络分布</a></li>
+                <li id="_MP10" class="sub_menu">
+                    <a href="javascript:_MP('10','__APP__/sell/suc');" hidefocus="true" style="outline:none;">成功案例</a></li>
+            </ul>
+            <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>联系我们</h3>
+            <ul>
+                <li id="_MP11" class="sub_menu">
+                    <a href="javascript:_MP('11','__APP__/contact/index');" hidefocus="true" style="outline:none;">联系我们</a></li>
+            </ul> -->
+            <script type="text/javascript">
+            $(".switchs").each(function(i){
+                var ul = $(this).parent().next();
+                $(this).click(
+                function(){
+                    if(ul.is(':visible')){
+                        ul.hide();
+                        $(this).removeClass('on');
+                            }else{
+                        ul.show();
+                        $(this).addClass('on');
+                    }
+                })
+            });
+            </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+</head>
+<body>
+<style type="text/css">
+  html{_overflow-y:scroll}
+  #shenqing tr td textarea {width:300px;height:38px}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+<div class="content-menu ib-a blue line-x">
+  <form action="{F:URL('apply/index')}" method="get">
+  <input type="text" name="name" value="{$_GET['name']}"/><input type="submit" value="提交" class="Ybutton"/>
+  </form>
+</div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+      <th>编号</th>
+      <th>客户</th>
+      <th>地址</th>
+      <th>收货人</th>
+      <th>日期</th>
+      <th>物流</th>
+      <th>单号</th>
+      <th>代收款</th>
+      <th>批发价</th>
+      <th>邮费</th>
+      <th>手续费</th>
+      <th>其他</th>
+      <th>结账</th>
+      <th>状态</th>
+      </tr>
+      </thead>
+      <tbody>
+    {loop $data $vo}
+       <tr>
+      <td>{$vo.id}</td>
+      <td>{$user}</td>
+      <td>{$vo.address}</td>
+      <td>{$vo.shouhuoren}</td>
+      <td>{$vo.fahuotime}</td>
+      <td>{$vo.wuliu}</td>
+      <td>{$vo.wuliudanhao}</td>
+      <td>{$vo.daishoukuan}</td>
+      <td>{$vo.pifajia}</td>
+      <td>{$vo.youfei}</td>
+      <td>{$vo.dsshouxufei}</td>
+      <td>{$vo.qitafei}</td>
+      <td>{$vo.yingli}</td>
+      <td>
+      <?php
+      switch ($vo['isfahuo']){
+            case '0':
+            $vo['isfahuo'] = "未发货";
+          break;
+            case '1':
+            $vo['isfahuo'] = "已发货";
+          break;
+            case '2':
+            $vo['isfahuo'] = "退货";
+          break;
+            case '3':
+            $vo['isfahuo'] = "成功";
+          break;
+            default:
+            $vo['isfahuo'] = "未发货";
+          break;
+        }
+
+        switch ($vo['isjiesuan']){
+            case '0':
+            $vo['isjiesuan'] = "未结算";
+          break;
+            case '1':
+            $vo['isjiesuan'] = "已结算";
+          break;
+            default:
+            $vo['isjiesuan'] = "未结算";
+          break;
+        }
+       ?>
+        {$vo.isfahuo}-{$vo.isjiesuan}</td>
+      </tr>
+    {/loop}
+      </tbody>
+    </table>
+    <div class="btn">
+      结算的订单编号:{$bianhao}&nbsp;&nbsp;&nbsp;&nbsp;结算合计:<b style="color:red">{$summoney}</b>
+      <form action="{F:url('apply/index')}" method="post" style="display:inline">
+      <input type="hidden" name="do" value="yes"/>
+      <input type="hidden" name="uid" value="{$uid}"/>
+      <input type="hidden" name="name" value="{$user}"/>
+      <input class="Ybutton" type="submit" value="确定结账" />
+      </form>
+  </div>
+    <div id="pages">{$page}</div> 
+</div>
+</div>
+</body></html>

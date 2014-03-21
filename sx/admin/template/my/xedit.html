@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script type="text/javascript">
+ function check_form(obj){
+  if(obj.oldpassword.value=='')
+  {
+    alert('原密码不能为空');
+    obj.oldpassword.focus();
+    return false;
+  }
+  if(obj.password.value=='')
+  {
+    alert('新密码不能为空');
+    obj.password.focus();
+    return false;
+  }
+  if(obj.password2.value=='')
+  {
+    alert('重复新密码不能为空');
+    obj.password2.focus();
+    return false;
+  }
+  return true;
+}
+</script>
+</head>
+<body style="padding:10px">
+<form id="myform" method="post" action="xedit" name="my" onsubmit="return check(document.my);">
+<div class="bk10"></div>
+<fieldset>
+  <legend>密码</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80">用户名：</th>
+    <td class="y-bg"><input type="text" value="admin" size="30" id="name" name="name" class="input-text" disabled>
+  </tr>
+  <tr>
+    <th width="80">原密码：</th>
+    <td class="y-bg"><input type="text" value="" size="30" id="name" name="oldpassword" class="input-text">
+  </tr>
+  <tr>
+    <th width="80">新密码：</th>
+    <td class="y-bg"><input type="password" value="" size="30" id="name" name="password" class="input-text">
+  </tr>
+  <tr>
+    <th>重复新密码：</th>
+    <td class="y-bg"><input type="password" value="" size="30" id="name" name="password2" class="input-text">
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk15"></div>
+<fieldset>
+<input type="hidden" name="pc_hash" value="qXrUFG">
+<input type="submit" value="提交" name="dosubmit" id="dosubmit" class="Ybutton">
+</fieldset>
+</form>
+</body>
+</html>

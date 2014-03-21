@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+</head>
+<body>
+ <script>
+        var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#editor_id', {
+                        resizeType : 2,
+                        uploadJson : '__PUBLIC__/edit/upload_json.php' // 相对于当前页面的路径
+                });
+        K('#image1').click(function() {
+editor.loadPlugin('image', function() {
+editor.plugin.imageDialog({
+imageUrl : K('#url1').val(),
+clickFn : function(url, title, width, height, border, align) {
+K('#url1').val(url);
+editor.hideDialog();
+}
+});
+});
+});
+        });
+</script>
+<style type="text/css">
+  html{_overflow-y:scroll}
+</style><script type="text/javascript">
+<!--
+  var charset = 'utf-8';
+  var uploadurl = '__ROOT__/upload/';
+
+  function check_form(obj){
+  if(obj.title.value=='')
+  {
+    alert('文章标题不能为空');
+    obj.title.focus();
+    return false;
+  }
+  if(obj.cid.value=='')
+  {
+    alert('文章栏目不能为空');
+    obj.cat_id.focus();
+    return false;
+  }
+  return true;
+}
+//-->
+</script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+<form name="myform" id="myform" action="edit" method="post" enctype="multipart/form-data" onsublime="return check_form(document.myform)">
+<div class="addContent">
+    <a title="展开与关闭" class="r-close" hidefocus="hidefocus" style="outline-style: none; outline-width: medium;" id="RopenClose" href="javascript:;"><span class="hidden">展开</span></a>
+    <div class="col-auto">
+      <div class="col-1">
+          <div class="content pad-6">
+<table width="100%" cellspacing="0" class="table_form">
+  <tbody> 
+  <tr>
+      <th width="80"> <font color="red">*</font> 栏目   </th>
+      <td><!-- <input type="hidden" name="info[catid]" value="6">国内 <a href='javascript:;' onclick="omnipotent('selectid','?m=content&c=content&a=add_othors&siteid=1','同时发布到其他栏目',1);return false;" style='color:#B5BFBB'>[同时发布到其他栏目]</a><ul class='list-dot-othors' id='add_othors_text'></ul>   -->
+        <select name="cid"  reg="." id="cid" >
+        <option value="" disabled="disabled">选择分类</option>
+        <?php foreach($cat as $vo){
+          if($vo['mid'] == $mid){?>
+         <option value="{$vo['id']}" <?php if($vo['pid']==0) echo "disabled";if($vo['id'] == $info['cid']) echo "checked";?> >{$vo['cname']}</option>
+        <?php }}?>
+
+      </td>
+    </tr>
+  <tr>
+      <th width="80"> <font color="red">*</font> 标题   </th>
+      <td><input type="text" style="width:400px;" name="title" id="title" value="{$info['title']}" style="color:" class="measure-input" onkeyup="strlen_verify(this, 'title_len', 80)"/>
+     <!--  <input type="hidden" name="style_color" id="style_color" value="">
+      <input type="hidden" name="style_font_weight" id="style_font_weight" value="">
+      <img src="http://localhost/phpcms/statics/images/icon/colour.png" width="15" height="16" onclick="colorpicker('title_colorpanel','set_title_color');" style="cursor:hand"/> 
+    <img src="http://localhost/phpcms/statics/images/icon/bold.png" width="10" height="10" onclick="input_font_bold()" style="cursor:hand"/> <span id="title_colorpanel" style="position:absolute;" class="colorpanel"> --></span>还可输入<B><span id="title_len">80</span></B> 个字符  </td>
+    </tr>
+  <tr>
+      <th width="80"> 关键词   </th>
+      <td><input type='text' name='keywords' id='keywords' value="{$info['keywords']}" style='width:280px'   class='input-text'>多关键词之间用空格或者“,”隔开</td>
+    </tr>
+  <tr>
+      <th width="80"> 摘要    </th>
+      <td><textarea name='description' id='description' style='width:40%;height:56px;' onkeyup="strlen_verify(this, 'description_len', 255)">{$info['description']}</textarea>还可输入<B><span id="description_len">255</span></B> 个字符  </td>
+    </tr>
+    <tr>
+      <th width="80"> 图片   </th>
+      <td>
+        <input type="text" class="input-text" id="url1" style="width:280px" value="{$info['pic']}" name="pic">
+        <input type="button" id="image1" value="选择图片"  class="Ybutton">
+      </td>
+    </tr>
+  <tr>
+      <th width="80"> <font color="red">*</font> 内容   </th>
+      <td><div id='content_tip'></div>
+        <textarea id="editor_id" name="content" style="width:900px;height:400px;">{$info['content']}</textarea>
+</td>
+    </tr>
+     <tr>
+      <th width="80"> <font color="red">*</font> 是否发布   </th>
+      <td>
+        <?php if($info['status']){ ?>
+      <input type="radio" checked="" value="1" name="status">发布
+      <input type="radio" value="0" name="status">草稿
+      <?php }else{?>
+       <input type="radio"  value="1" name="status">发布
+       <input type="radio" checked="" value="0" name="status">草稿
+       <?php } ?>
+    </td>
+    </tr>
+    <tr>
+       <th width="80"></th>
+      <td>
+        <input type="hidden" name="do" value="yes">
+        <input type="hidden" value="{$info['id']}" name="id">
+        <input type="hidden" name="mid" value="{$mid}">
+        <input type="submit" value="发布" name="dosubmit" id="dosubmit" class="Ybutton">　
+        <!-- <input type="reset" value="重置" name="reset" id="reset" class="Ybutton"> -->
+      </td>
+    </tr>
+    </tbody></table>
+                </div>
+          </div>
+        </div>
+    </div>
+</div>
+</form>
+<div class="fixed-bottom">
+  <div class="fixed-but text-c"></div>
+</div>
+</form>
+</body>
+</html>

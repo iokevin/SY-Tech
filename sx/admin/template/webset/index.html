@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/formvalidatorregex.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/kindeditor-min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/edit/lang/zh_CN.js"></script>
+<script type="text/javascript">
+var editor;
+KindEditor.ready(function(K) {
+  editor = K.create('#editor_id', {
+    resizeType : 2,
+    uploadJson : '__PUBLIC__/edit/upload_json.php' // 相对于当前页面的路径
+  });
+});
+<!--
+  $(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#dirname").formValidator({onshow:"请输入站点目录",onfocus:"请输入站点目录"}).inputValidator({min:1,onerror:"请输入站点目录"}).regexValidator({regexp:"username",datatype:"enum",param:'i',onerror:"只能包括数字、字母、下划线三种类型。"}).ajaxValidator({type : "get",url : "",data :"m=admin&amp;c=site&amp;a=public_dirname&amp;siteid=1",datatype : "html",async:'false',success : function(data){  if( data == "1" ){return true;}else{return false;}},buttons: $("#dosubmit"),onerror : "站点目录已存在。",onwait : "正在连接，请稍候。"}).defaultPassed();
+    $("#domain").formValidator({onshow:"请填写域名，格式为：http://www.website.com/",onfocus:"请填写域名，格式为：http://www.website.cn/",tipcss:{width:'300px'},empty:false}).inputValidator({onerror:"请填写域名，格式为：http://www.website.com/"}).regexValidator({regexp:"http:\/\/(.+)\/$",onerror:"格式应该为http://www.website.com/，请以‘/’结束"});
+    // $("#template").formValidator({onshow:"请选择风格（至少选一个）",onfocus:"至少选择1个"}).inputValidator({min:1,onerror:"至少选择1个"});
+    // $('#release_point').formValidator({onshow:"将站点发布到别的服务器上",onfocus:"请选择发布点"}).inputValidator({max:4,onerror:"最多选择4个"});
+    // $('#default_style_input').formValidator({tipid:"default_style_msg",onshow:"请选择风格后，选择默认模板。",onfocus:"请选择风格后，选择默认模板。"}).inputValidator({min:1,onerror:"请选择默认风格"});
+  })
+//-->
+</script>
+</head>
+<body style="padding:10px">
+<form id="myform" method="post" action="index">
+<div class="bk10"></div>
+<fieldset>
+  <legend>基本配置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80">站点名称：</th>
+    <td class="y-bg"><input type="text" value="{$config['sitename']}" size="30" id="name" name="name" class="input-text">
+  </tr>
+  <tr>
+    <th>站点目录：</th>
+    <td class="y-bg"></td>
+  </tr>
+    <tr>
+    <th>站点域名：</th>
+    <td class="y-bg"><input type="text" value="{$config['siteurl']}" size="30" id="domain" name="domain" class="input-text"><div id="domainTip" class="onShow">请填写域名，格式为：http://www.sitename.com/</div></td>
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk10"></div>
+<fieldset>
+  <legend>SEO配置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80">站点标题：</th>
+    <td class="y-bg"><input type="text" value="{$config['seotitle']}" size="30" id="site_title" name="site_title" class="input-text"></td>
+  </tr>
+  <tr>
+    <th>关键词：</th>
+    <td class="y-bg"><input type="text" value="{$config['seokeywords']}" size="50" id="keywords" name="keywords" class="input-text"></td>
+  </tr>
+    <tr>
+    <th>描述：</th>
+    <td class="y-bg"><input type="text" value="{$config['seodescription']}" size="80" id="description" name="description" class="input-text"></td>
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk10"></div>
+<fieldset>
+  <legend>全局设置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80">模版缓存：</th>
+    <td class="y-bg">
+<?php if($config['TPL_CACHE_ON'] == true){?>
+<input type="radio" checked="checked" value="true" name="mb">
+开启
+<input type="radio" value="false" name="mb">
+关闭
+<?php }else{ ?>
+<input type="radio"  value="true" name="mb">
+开启
+<input type="radio" value="false" checked="checked" name="mb">
+关闭
+<?php }?> 
+    </td>
+  </tr>
+  <tr>
+    <th>静态页缓存：</th>
+    <td class="y-bg">
+<?php 
+if($config['HTML_CACHE_ON'] == true){?>
+<input id="DEBUG" type="radio" checked="checked" value="true" name="jt">
+开启
+<input type="radio" value="false" name="jt">
+关闭 
+<?php }else{?>
+<input id="DEBUG" type="radio" value="true" name="jt">
+开启
+<input type="radio" value="false" checked="checked" name="jt">
+关闭
+<?php } ?>
+</td>
+
+  </tr>
+    <tr>
+    <th>快递公司：</th>
+    <td class="y-bg"><input size="80" type="text" value="{$config['post']}" size="50" id="keywords" name="post" class="input-text"><div id="domainTip" class="onShow">快递公司名请用逗号(,)隔开，格式为：顺丰快递,EMS快递,申通快递,韵达快递</div></td>
+  </tr>
+  <tr>
+    <th>快递参数：</th>
+    <td class="y-bg"><input size="80" type="text" value="{$config['postapi']}" size="50" id="keywords" name="postapi" class="input-text"><div id="domainTip" class="onShow">快递公司参数请用逗号(,)隔开，参数地址:https://code.google.com/p/kuaidi-api/wiki/Open_API_API_URL</div><br><font color="red">参数顺序必须和快递公司项对应 否则将不能正确查询</font></td>
+  </tr>
+     <tr>
+    <th>会员等级：</th>
+    <td class="y-bg"><input size="80" type="text" value="{$config['lv']}" size="50" id="keywords" name="lv" class="input-text"><div id="domainTip" class="onShow">会员等级请用逗号(,)隔开，格式为：VIP一级,VIP二级,VIP三级,VIP四级</div></td>
+  </tr>
+   <tr>
+    <th>最小结算额：</th>
+    <td class="y-bg"><input size="10" type="text" value="{$config['minmoney']}" size="50" id="keywords" name="minmoney" class="input-text"></td>
+  </tr>
+  <tr>
+    <th>成功订单：</th>
+    <td class="y-bg"><input size="10" type="text" value="{$config['successdd']}" size="50" id="keywords" name="successdd" class="input-text"><font color="#bbb">配置成功订单的背景颜色 格式为：#ff0000(十六进制颜色表示)</font></td>
+  </tr>
+  <tr>
+    <th>退货订单：</th>
+    <td class="y-bg"><input size="10" type="text" value="{$config['errordd']}" size="50" id="keywords" name="errordd" class="input-text"><font color="#bbb">配置失败订单的背景颜色 格式为：#00ff00(十六进制颜色表示)</font></td>
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk10"></div>
+<!-- <fieldset>
+  <legend>网站底部</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <td> 
+      <textarea id="editor_id" name="foot" style="width:900px;height:300px;">{$info['foot']}</textarea>
+      <div id="release_pointTip" class="onShow">网站底部</div></td>
+  </tr>
+</tbody></table>
+</fieldset> -->
+<!-- <fieldset>
+  <legend>网站统计</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <td> 
+      <textarea id="endescr" rows="5" cols="60" name="statistics">{$info['statistics']}</textarea>
+      <div id="release_pointTip" class="onShow">添加统计代码</div></td>
+  </tr>
+</tbody></table>
+</fieldset>
+<fieldset>
+  <legend>微博代码</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <td> 
+      <textarea id="endescr" rows="5" cols="60" name="weibo">{$info['weibo']}</textarea>
+      <div id="release_pointTip" class="onShow">添加微博秀代码</div></td>
+  </tr>
+</tbody></table>
+</fieldset> -->
+<div class="bk10"></div>
+<!--<fieldset>
+  <legend>发布点配置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80" valign="top">发布点：</th>
+    <td> <select title="按住Ctrl可多选" multiple="" id="release_point" size="3" name="release_point[]">
+    <option selected="" value="">不使用发布点</option>
+          </select><div id="release_pointTip" class="onShow">将站点发布到别的服务器上</div></td>
+  </tr>
+</tbody></table>
+</fieldset>
+<div class="bk10"></div>
+ <fieldset>
+  <legend>模板风格配置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="80" valign="top">风格名：</th>
+    <td class="y-bg"> <select onchange="default_list()" title="按住Ctrl可多选" multiple="" id="template" size="3" name="template[]">
+    
+            <option selected="" value="default">默认模板</option>
+          </select><div id="templateTip" class="onShow">请选择风格（至少选一个）</div></td>
+  </tr>
+  <tr>
+    <th width="80" valign="top">默认风格：<input type="hidden" value="default" id="default_style_input" name="default_style"></th>
+    <td class="y-bg"><span id="default_style">
+  <label><input type="radio" checked="" onclick="$('#default_style_input').val(this.value);" value="default" name="default_style_radio">默认模板</label>  </span><span id="default_style_msg" class="onShow">请选择风格后，选择默认模板。</span></td>
+  </tr>
+</tbody></table>
+<script type="text/javascript">
+function default_list() {
+  var html = '';
+  var old = $('#default_style_input').val();
+  var checked = '';
+  $('#template option:selected').each(function(i,n){
+    if (old == $(n).val()) {
+      checked = 'checked';
+    }
+     html += '&lt;label&gt;&lt;input type="radio" name="default_style_radio" value="'+$(n).val()+'" onclick="$(\'#default_style_input\').val(this.value);" '+checked+'&gt; '+$(n).text()+'&lt;/label&gt;';
+  });
+  if(!checked)  $('#default_style_input').val('0');
+  $('#default_style').html(html);
+}
+</script>
+</fieldset> -->
+<div class="bk10"></div>
+<fieldset>
+  <legend>附件配置</legend>
+  <table width="100%" class="table_form">
+  <tbody><tr>
+    <th width="130" valign="top">允许上传附件大小</th>
+    <td class="y-bg"><input type="text" value="1024" size="10" id="upload_maxsize" name="setting[upload_maxsize]" class="input-text" disabled> KB </td>
+  </tr>
+  <tr>
+    <th width="130" valign="top">允许上传附件类型</th>
+    <td class="y-bg"><input type="text" value="jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf" size="80" id="upload_allowext" name="setting[upload_allowext]" class="input-text" disabled></td>
+  </tr>  
+    <!-- <tr>
+    <th>GD库功能检测</th>
+    <td class="y-bg"><font color="green">支持</font></td>
+  </tr><tr>
+    <th>是否开启图片水印</th>
+    <td class="y-bg">
+    <input type="radio" checked="checked" value="1" name="setting[watermark_enable]" class="radio_style"> 启用&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" value="0" name="setting[watermark_enable]" class="radio_style"> 关闭     </td>
+  </tr>    
+  <tr>
+    <th>水印添加条件</th>
+    <td class="y-bg">宽<input type="text" value="300" size="10" id="watermark_minwidth" name="setting[watermark_minwidth]" class="input-text"> X 高<input type="text" value="300" size="10" id="watermark_minheight" name="setting[watermark_minheight]" class="input-text"> PX
+     </td>
+  </tr>
+  <tr>
+    <th width="130" valign="top">水印图片</th>
+    <td class="y-bg"><input type="text" value="/mark.png" size="30" id="watermark_img" name="setting[watermark_img]" class="input-text">水印存放路径:statics/images/water</td>
+  </tr> 
+   <tr>
+    <th width="130" valign="top">水印透明度</th>
+    <td class="y-bg"><input type="text" value="85" size="10" id="watermark_pct" name="setting[watermark_pct]" class="input-text">  请设置为0-100之间的数字，0代表完全透明，100代表不透明</td>
+  </tr> 
+   <tr>
+    <th width="130" valign="top">JPEG 水印质量</th>
+    <td class="y-bg"><input type="text" value="80" size="10" id="watermark_quality" name="setting[watermark_quality]" class="input-text"> 水印质量请设置为0-100之间的数字,决定 jpg 格式图片的质量</td>
+  </tr> 
+   <tr>
+    <th width="130" valign="top">水印位置</th>
+    <td>
+    <table width="100%" class="radio-label">
+  <tbody><tr>
+  <td rowspan="3"><input type="radio" value="10" name="setting[watermark_pos]" class="radio_style"> 随机位置</td>
+    <td><input type="radio" value="1" name="setting[watermark_pos]" class="radio_style"> 顶部居左</td>
+    <td><input type="radio" value="2" name="setting[watermark_pos]" class="radio_style"> 顶部居中</td>
+    <td><input type="radio" value="3" name="setting[watermark_pos]" class="radio_style"> 顶部居右</td>
+  </tr>
+  <tr>
+    <td><input type="radio" value="4" name="setting[watermark_pos]" class="radio_style"> 中部居中</td>
+    <td><input type="radio" value="5" name="setting[watermark_pos]" class="radio_style"> 中部居左</td>
+    <td><input type="radio" value="6" name="setting[watermark_pos]" class="radio_style"> 中部居右</td>
+    </tr>
+  <tr>
+    <td><input type="radio" value="7" name="setting[watermark_pos]" class="radio_style"> 底部居左</td>
+    <td><input type="radio" value="8" name="setting[watermark_pos]" class="radio_style"> 底部居中</td>
+    <td><input type="radio" checked="" value="9" name="setting[watermark_pos]" class="radio_style"> 底部居右</td>
+    </tr> -->
+</tbody></table>
+      </td></tr>
+</tbody></table>
+</fieldset>
+<div class="bk15"></div>
+<fieldset>
+<input type="hidden" name="do" value="yes">
+<input type="submit" value="提交" name="dosubmit" id="dosubmit" class="Ybutton" <?php if($_SESSION['admin_username']!='kevin'){?> disabled <?php } ?>>
+</fieldset>
+</form>
+</body>
+</html>
