@@ -12,7 +12,7 @@
 /admin/template/user/index.html & add.html & edit.html
 /admin/template/manage/index.html & edit.html
 /admin/module/manageMod.class.php
-/module/manageMod.class.php  &  accountsMod.class.php
+/module/manageMod.class.php  &  accountsMod.class.php & indexMod.class.php
 /template/user_index.html(加VIP）
 
 IP黑名单库：

@@ -25,7 +25,7 @@ $config['ERROR_URL']='';//出错信息重定向页面，为空采用默认的出
 
 //应用配置
 //网址配置
-$config['URL_REWRITE_ON']=false;//是否开启重写，true开启重写,false关闭重写
+$config['URL_REWRITE_ON']=true;//是否开启重写，true开启重写,false关闭重写
 $config['URL_MODULE_DEPR']='/';//模块分隔符，一般不需要修改
 $config['URL_ACTION_DEPR']='-';//操作分隔符，一般不需要修改
 $config['URL_PARAM_DEPR']='-';//参数分隔符，一般不需要修改

@@ -54,7 +54,7 @@ class indexMod extends commonMod{
 		$condition['username']=$username;
 		$user_info=$this->model->table('adm_user',true)->where($condition)->find();
 		//用户名密码正确且没有锁定
-		if(($user_info['password']==$password) && ($user_info['jh']==0 || $user_info['jh']==2))
+		if(($user_info['password']==$password) && ($user_info['jh']==0 || $user_info['jh']==2 || $user_info['jh']==4))
 		{			
 			//更新帐号信息
 			$data=array();

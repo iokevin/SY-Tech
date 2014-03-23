@@ -93,7 +93,7 @@ class manageMod extends commonMod{
 			if($user = $this->model->table('user')->where($condition)->find()){
 		    	
 		    	if($user['jh']==4){
-		    		$this->success("订单添加成功",__URL__);
+		    		$this->error("服务器忙，请稍后再试");
 		    	}
 		    }else{
 		    	$this->error("系统错误，请重试！");
