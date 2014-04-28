@@ -13,6 +13,20 @@
 /admin/template/manage/index.html & edit.html
 /admin/module/manageMod.class.php
 /module/manageMod.class.php  &  accountsMod.class.php & indexMod.class.php
-/template/user_index.html(加VIP）
+/template/user_index.html header.html (加VIP）
 
-IP黑名单库：
+/////////////////////////////////////////////////
+IP黑名单库功能： （取消）
+
+1.增加黑名单IP表 adm_ipblack
+CREATE TABLE `adm_ipblack` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ip` varchar(15) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+2.订单表adm_order 增加 ip 字段 
+`ip` varchar(15) DEFAULT '0'
+
+修改：/module/manageMod.class.php
+////////////////////////////////////////////////////
