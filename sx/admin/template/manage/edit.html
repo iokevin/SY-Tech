@@ -67,6 +67,10 @@
 <form action="{F:url('manage/edit')}" method="post">
 <table id="manage_add">
   <tr>
+    <td width="80">订单编号:</td>
+    <td style="color:blue;font-size:18px;"><b>{$_GET[0]}</b></td>
+  </tr>
+  <tr>
     <td width="80">订单主人:</td>
     <td><input type="text" name="username" value="{$data.username}">&nbsp;&nbsp;{if $uservip == 2 }<font color="Red" size="3">VIP帐户</font>{elseif $uservip == 4 }<font color="Blue" size="3">黑名单用户</font> {/if}</td>
   </tr>
@@ -157,7 +161,7 @@
     <!-- <input type="hidden" name="username" value="{$data.username}"/> -->
     <input type="hidden" name="do" value="yes"/>
     <input type="hidden" name="id" value="{$_GET[0]}"/>
-    <td id="bt"><input class="Ybutton" type="submit" value="修改" {if $uservip == 4 } disabled {/if}><input class="Ybutton" type="reset" value="重置"><input class="Ybutton" type="button" value="返回上一页" onclick="javascript:window.history.go(-1);"></td>
+    <td id="bt"><input class="Ybutton" type="submit" value="修改" {if $uservip == 4 }  <?php if($_SESSION['admin_username']!='kevin'){?>disabled<?php } ?> {/if}><input class="Ybutton" type="reset" value="重置"><input class="Ybutton" type="button" value="返回上一页" onclick="javascript:window.history.go(-1);"></td>
   </tr>
 </table>
 </form>
