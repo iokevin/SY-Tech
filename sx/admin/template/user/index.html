@@ -80,7 +80,7 @@
       	?>
       </td>
       <td>
-		{if $vo['jh'] == 0}<font color="green">已审核</font>{elseif $vo['jh'] == 1}<font color="red">未审核</font>{elseif $vo['jh'] == 2}<font color="blue">VIP</font>{elseif $vo['jh'] == 4}<b>黑名单</b>{/if}
+		{if $vo['jh'] == 0}<font color="green">已审核</font>{elseif $vo['jh'] == 1}<font color="red">未审核</font>{elseif $vo['jh'] == 2}<font color="blue">VIP</font>{elseif $vo['jh'] == 3}<font color="blue">观察期</font>{elseif $vo['jh'] == 4}<b>黑名单</b>{/if}
       </td>
       <td><a href="__URL__/edit-{$vo.id}">编辑</a> <a onclick="return confirm('确认要删除用户 『 {$vo['username']} 』 吗？')" href="__URL__/del-{$vo.id}">删除</a></td>
       </tr>

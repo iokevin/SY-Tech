@@ -88,7 +88,8 @@
       <input name="jh" type="radio" value="1" {if $data['jh'] == 1}checked{/if}>
       未审核
       <input name="jh" type="radio" value="2" {if $data['jh'] == 2}checked{/if}><font color="Red">VIP</font>
-      <input name="jh" type="radio" value="4" {if $data['jh'] == 4}checked{/if}><b>黑名单</b><font color="Red">&nbsp;（注：对于被设置成黑名单的用户，客服不要告诉客户，如果他们咨询为什么下不了单，就说系统出现故障，被攻击了或其他原因）</font>
+      <input name="jh" type="radio" value="3" {if $data['jh'] == 3}checked{/if}><font color="Blue">观察期</font><font color="Red">&nbsp;（注：设为观察期的客户只能登录，不能下单）</font>
+      <input name="jh" type="radio" value="4" {if $data['jh'] == 4}checked{/if}><b>黑名单</b><font color="Red">&nbsp;（注：对于被设置成黑名单的用户，客服不必告诉客户，黑名单用户不能再登录系统）</font>
     </td>
   </tr>
    <tr>
