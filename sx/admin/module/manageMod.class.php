@@ -151,7 +151,7 @@ class manageMod extends commonMod{
 		    $condition['username'] = $username;
 		    if($user = $this->model->table('user')->where($condition)->find()){
 		    	//echo $model->sql;
-		    	if($user['jh']==4){
+		    	if($user['jh']==3 || $user['jh']==4){
 		    		$this->error("此用户不能下订单");
 		    	}
 		    	$data['userid'] = $user['id'];
