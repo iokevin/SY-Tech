@@ -20,7 +20,7 @@
 <div id="header">
 	<div class="logo"><a href="{F:url()}"><h3>会员中心</h3></a></div>
 	
-    <div class="link">你好 {$_SESSION['username']}<span> | </span>
+    <div class="link">您好 {$_SESSION['username']} {if $_SESSION['sxlevel']==2}<font color="Red"><b>（VIP客户）</b></font>{/if}<span> | </span>
 	<a href="{F:url('index/logout')}">安全退出</a>
 	<span> | </span><a href="{F:url()}">首页</a> </div>
 	<div class="nav-bar">
