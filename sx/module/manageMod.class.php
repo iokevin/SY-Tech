@@ -92,7 +92,7 @@ class manageMod extends commonMod{
 			$condition['id'] = $data['userid'];
 			if($user = $this->model->table('user')->where($condition)->find()){
 		    	
-		    	if($user['jh']==4){
+		    	if($user['jh']==3 || $user['jh']==4){
 		    		$this->error("服务器忙，请稍后再试");
 		    	}
 		    }else{
