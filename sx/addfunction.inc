@@ -1,3 +1,37 @@
+20140508 
+后台增加订单查询条件为 成功-未结算 和 退货-未结算 
+admin/template/manage/index.html
+admin/module/manageMod.class.php
+
+///////////////////////////////////////////////////////////////////////////////
+
+20140502
+添加产品查看功能：
+1.增加产品表 adm_goods
+CREATE TABLE `adm_goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
+  `vprice` decimal(10,0) DEFAULT NULL,
+  `pprice` decimal(10,0) DEFAULT NULL,
+  `mprice` decimal(10,0) DEFAULT NULL,
+  `wholesaleprice` decimal(10,0) DEFAULT NULL,
+  `desc` varchar(50) DEFAULT NULL,
+  `stock` tinyint(2) DEFAULT NULL,
+  `hot` tinyint(2) DEFAULT NULL,
+  `new` tinyint(2) DEFAULT NULL,
+  `promo` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC
+
+2.增加module
+admin/module/goodsMod.class.php
+module/goodsMod.class.php
+
+
+///////////////////////////////////////////////////////////////////////////
+
 添加订单：
 1. 电话号码录入改为发QQ
 2. 快递公司选择下拉框增加 顺丰COD和宅急送COD
@@ -14,6 +48,9 @@
 /admin/module/manageMod.class.php
 /module/manageMod.class.php  &  accountsMod.class.php & indexMod.class.php
 /template/user_index.html header.html (加VIP）
+
+
+
 
 /////////////////////////////////////////////////
 IP黑名单库功能： （取消）
