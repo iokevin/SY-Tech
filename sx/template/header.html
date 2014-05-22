@@ -43,6 +43,19 @@
 		<a href="{F:url('user/index')}" {if strpos($_SERVER['PHP_SELF'],'user')}class="on"{/if} ><span>个人信息</span></a>
 				</li>
 					<li class="line">|</li>
+					
+					<li>
+					{if $_SESSION['sxlevel']==2 || $_SESSION['sxlevel']==0}
+					<a href="http://www.sxdaifa.com/download.php" target="_blank"><span>产品目录下载</span></a>
+					{else}
+					<a href="javascript:;"><span>产品目录</span></a>
+					{/if}		
+				</li>
+					<li class="line">|</li>
+					<li>
+		<a href="javascript:alert('暂没有促销产品..');"><span><font color="Red">最新促销</font></span></a>
+				</li>
+					<li class="line">|</li>
 			
             </ul>
         </map>
