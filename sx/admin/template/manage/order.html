@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgdialog.min.js?skin=chrome"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgcore.lhgcalendar.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    $('.cal').calendar({btnBar:false});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+      <form action="{F:url('manage/order')}" method="get" style="display:inline">
+      关键字:<input type="text" size="25" name="keyword" value="{$_GET['keyword']}"/>客户名:<input type="text" size="15" name="kehu" value="{$_GET['kehu']}"/>
+ 
+      <input class="Ybutton" type="submit" value="搜索" />
+      <input name="do" type="hidden" value="yes" />
+      &nbsp;&nbsp;&nbsp;&nbsp;
+   <select name="isfahuo" onchange="location.href=this.value">
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}">全部</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f=31&w='.$_GET['w'].'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}" {if $_GET['f'] == 31}selected{/if}>成功-已结算</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f=21&w='.$_GET['w'].'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}" {if $_GET['f'] == 21}selected{/if}>退货-已结算</option>
+ </select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+ <select name="wuliu" onchange="location.href=this.value">
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}">请选择快递</option>
+    {loop $post $key $vo}
+      <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$vo.'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}" {if $_GET['w'] == $vo}selected{/if}>{$vo}</option>
+    {/loop}
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+   <select name="money" onchange="location.href=this.value">
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&s='.$_GET['s'].'&do=yes')}">代收金额</option>
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m=1&s='.$_GET['s'].'&do=yes')}" {if $_GET['m'] == 1}selected{/if}>>=1000元</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m=2&s='.$_GET['s'].'&do=yes')}" {if $_GET['m'] == 2}selected{/if}>&nbsp;&nbsp;<1000元</option>
+ </select>
+ &nbsp;&nbsp;&nbsp;&nbsp;
+  <select name="status" onchange="location.href=this.value">
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&do=yes')}">财务状态</option>
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s=1&do=yes')}" {if $_GET['s'] == 1}selected{/if}>未回款</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s=2&do=yes')}" {if $_GET['s'] == 2}selected{/if}>已回款</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s=3&do=yes')}" {if $_GET['s'] == 3}selected{/if}>未回款-签改退</option>
+   <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s=4&do=yes')}" {if $_GET['s'] == 4}selected{/if}>已回款-签改退</option>
+    <option value="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$_GET['kehu'].'&f='.$_GET[f].'&w='.$_GET['w'].'&m='.$_GET['m'].'&s=5&do=yes')}" {if $_GET['s'] == 5}selected{/if}>其他</option> 
+ </select>
+  <input type="hidden" name="f" value="{$_GET['f']}"/>
+  <input type="hidden" name="w" value="{$_GET['w']}"/>
+</form>
+<!--  &nbsp;&nbsp;&nbsp;&nbsp;
+<form action="{F:url('manage/order')}" method="post" style="display:inline">
+ <input type="text" size="15" name="d"/><input name="su" class="Ybutton" type="submit" value="指定单号" />
+ </form>-->
+    </div>
+</div>
+<style>
+  .table-list tr th{text-align: left;}
+</style>
+<form name="myform" id="myform" action="dels" method="post">
+<div class="table-list">
+    <table width="100%">
+      <thead>
+      <tr>
+			<th><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+      <th>编号</th>
+			<th>客户</th>
+		<!--	<th>收货地址</th>
+      <th>收货人</th>-->
+			<th>发货日期</th>
+			<th>物流</th>
+			<th>物流单号</th>
+			<th>应收款</th>
+<!--			<th>批发价</th>-->
+<!--			<th>邮费</th>-->
+			<th>结出款</th>
+			<th>订单状态</th>
+			<th>返款状态</th>
+			<th>操作</th>
+<!--			<th>打印</th>-->
+      </tr>
+      </thead>
+      <tbody>
+    {loop $data $vo}
+	     <tr bgcolor="{if $vo['isfahuo']==2 && $vo['isjiesuan']==1}{$errorcolor}{elseif $vo['isfahuo']==3 && $vo['isjiesuan']==1}{$successcolor}{/if}">
+      <td><input class="inputcheckbox " name="ids[]" value="{$vo.aid}" type="checkbox"></td>
+      <td><a href="__URL__/edit-{$vo['aid']}">{$vo.aid}</a> {if $vo['isfahuo']==0}<font color="red">未</font>{/if}</td>
+      <td>{if $vo['jh']==2}<font color="red">VIP</font>{elseif $vo['jh'] == 4}<font color="blue">黑</font>{/if} <a href="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$vo['username'].'&f='.$_GET[f].'&w='.$_GET[w].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}">{$vo.username}</a></td>
+      <td>{F:msubstr($vo['address'],0,6)}</td>
+      <td>{$vo.shouhuoren}</td>
+      <td>{$vo.fahuotime}</td>
+      <td>{$vo.wuliu}</td>
+      <td>
+      {if !empty($vo['wuliudanhao'])}
+      {loop $post $k $v}
+      {if $vo['wuliu']==$v}
+        <a onclick="urldialog('查询物流结果','__URL__/kuaidi100?com={$postapi[$k]}&nu={$vo.wuliudanhao}')" href="javascript:;">{$vo.wuliudanhao}</a>
+      {/if}
+      {/loop}
+      {/if}</td>
+      <td>{$vo.daishoukuan}</td>
+      <td>{$vo.pifajia}</td>
+      <td>{$vo.youfei}</td>
+      <td>{$vo.yingli}</td>
+      <td>
+        <?php
+      switch ($vo['isfahuo']){
+            case '0':
+            $vo['isfahuo'] = "未发货";
+          break;
+            case '1':
+            $vo['isfahuo'] = "已发货";
+          break;
+            case '2':
+            $vo['isfahuo'] = "退货";
+          break;
+            case '3':
+            $vo['isfahuo'] = "成功";
+          break;
+          	case '4':
+            $vo['isfahuo'] = "问题件";
+          break;
+            default:
+            $vo['isfahuo'] = "未发货";
+          break;
+        }
+
+        switch ($vo['isjiesuan']){
+            case '0':
+            $vo['isjiesuan'] = "未结算";
+          break;
+            case '1':
+            $vo['isjiesuan'] = "已结算";
+          break;
+            default:
+            $vo['isjiesuan'] = "未结算";
+          break;
+        }
+       ?>
+        {$vo.isfahuo}-{$vo.isjiesuan}
+      </td>
+      <td>
+      <a href="__URL__/edit-{$vo['aid']}">修改</a>|
+      <a onclick="return confirm('确认要删除编号 『 {$vo['aid']} 』 吗？')" href="__URL__/del-{$vo['aid']}" >删除</a>
+      </td>
+      <td>{if !empty($vo['wuliu'])}<a target='_blank' href="__URL__/dayin?kd={loop $post $k $v}{if $vo['wuliu']==$v}{$postapi[$k]}{/if}{/loop}&id={$vo.aid}">打印</a>{/if}</td>
+      </tr>
+    {/loop}
+      </tbody>
+    </table>
+    <div class="btn"><label for="check_box">全选/取消</label>
+			<input type="hidden" value="true" name="do">
+				<input type="submit" class="button" value="删除" ><span style="float:right;margin-right:20px;color:#888"><h5>总计: <font color="#f95">{$count}</font> 条数据</h5></span>
+<!-- 			<input type="button" class="button" value="推送" onclick="push();">
+				<input type="button" class="button" value="批量移动" onclick="myform.action='?m=content&c=content&a=remove&catid=6';myform.submit();"> -->
+			</div>
+    <div id="pages">{$page}</div>
+</div>
+</form>
+</div>
+</body></html>
