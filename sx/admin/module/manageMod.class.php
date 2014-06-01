@@ -103,6 +103,100 @@ class manageMod extends commonMod{
 		$this->assign('data',$data);
 		$this->display();
 	}
+	
+		//订单对账20140531
+		public function order(){
+		$url = __URL__ . "/order?keyword=$_GET[keyword]&amp;kehu=$_GET[kehu]&amp;f=$_GET[f]&amp;w=$_GET[w]&amp;m=$_GET[m]&amp;s=$_GET[s]&amp;do=yes&amp;page={page}"; //分页基准网址
+        $page = new Page();
+        $listRows = 20; //每页显示记录
+        $cur_page = $page->getCurPage($url);
+        $limit_start = ($cur_page - 1) * $listRows;
+        $limit = $limit_start . ',' . $listRows;
+
+        if($_GET['do']){
+        	$keyword = in($_GET['keyword']);
+        	$kehu    = in($_GET['kehu']);
+        	if(!empty($kehu)){
+        		$condition['username'] = $kehu;
+        		$kehu_data = $this->model->table('user')->where($condition)->find();
+        		$kehuid = !empty($kehu_data) ? " AND userid=$kehu_data[id] " : "";
+        	}else{
+        		$kehuid = "";
+        	}
+        if(!empty($keyword)){
+        	$keyword_case = " AND (shouhuoren like '%".$keyword."%' OR wuliudanhao like '%".$keyword."%' OR address like '%".$keyword."%' OR chanpin like '%".$keyword."%' OR beizhu like '%".$keyword."%') ";
+        }else{
+        	$keyword_case = "";
+        }
+        // if(empty($keyword) && empty($kehu)){
+        // 	$where = "";
+        // }else{
+        // 	$where = "WHERE $kehuid $keyword_case";
+        // }
+    
+    //------
+    	$f = in($_GET['f']);
+    	$w = in($_GET['w']);
+    	if(!empty($f)){
+			if($f == 31){
+    			$fwhere = " AND isfahuo = 3 AND isjiesuan = 1 ";
+    		}elseif($f == 21){
+    			$fwhere = " AND isfahuo = 2 AND isjiesuan = 1 ";
+    		}else{
+    			$fwhere = " AND (isfahuo = 2 OR isfahuo = 3) AND isjiesuan = 1 ";
+    		}
+    	}else{
+    		$fwhere = " AND (isfahuo = 2 OR isfahuo = 3) AND isjiesuan = 1 ";
+    	}
+    	if(!empty($w)){
+    		$wwhere = " AND wuliu = '$w' ";
+    	}else{
+    		$wwhere = "";
+    	}
+    	$m = in($_GET['m']);
+    	if(!empty($m)){
+    		if($m == 1){
+    			$mwhere = " AND daishoukuan >= 1000 ";
+    		}else{
+    			$mwhere = " AND daishoukuan < 1000 ";
+    		}
+    		
+    	}else{
+    		$mwhere = "";
+    	}
+    	$s = in($_GET['s']);
+    	if(!empty($s)){
+    		$swhere = " AND status = $s ";
+    		
+    	}else{
+    		$swhere = "";
+    	}
+    }else{
+    	$fwhere = " AND (isfahuo = 2 OR isfahuo = 3) AND isjiesuan = 1 ";
+    }
+
+    $where = "WHERE '1=1' $kehuid $keyword_case $fwhere $wwhere $mwhere $swhere";
+    //-------
+
+		$sql = "SELECT *,A.id as aid FROM {$this->model->pre}order A LEFT JOIN {$this->model->pre}user B ON A.userid = B.id {$where} ORDER BY A.id DESC LIMIT {$limit}";
+		$sql_count = "SELECT count(*) as num FROM {$this->model->pre}order A LEFT JOIN {$this->model->pre}user B ON A.userid = B.id {$where}";
+        $data = $this->model->query($sql);
+        $num = $this->model->query($sql_count);
+        $count = $num[0]['num'];
+
+   		$post = explode(',', $this->config['post']);
+   		$postapi = explode(',', $this->config['postapi']);
+   		$this->assign('successcolor', $this->config['successdd']);
+   		$this->assign('errorcolor', $this->config['errordd']);
+		$this->assign('post',$post);
+		$this->assign('postapi',$postapi);
+		$this->assign('count',$count);
+		$this->assign('page', $this->page($url, $count, $listRows));
+		$this->assign('data',$data);
+		$this->display();
+	}
+
+	///////////////
 
 	public function dayin(){
 		$id = intval($_GET['id']);
@@ -283,6 +377,40 @@ class manageMod extends commonMod{
 		$this->assign('uservip',$user['jh']);
 		$this->display();
 	}
+	
+	//订单对账20140531
+		public function orderEdit(){
+	    if($_POST['do']){
+	    	$id 				 = intval($_POST['id']);
+		    $data['status'] 	 = in($_POST['status']);
+		    $data['desc'] 	 = text_in($_POST['desc']);
+		    
+			$condition['id'] = $id;
+			if($this->model->table('order')->data($data)->where($condition)->update()){
+				//$this->success("修改订单成功",__URL__.'/edit-'.$id);
+				$this->alert("修改成功");
+			}else{
+				$this->error("修改失败");
+			}
+		}
+		$id = intval($_GET[0]);
+	    if(empty($id)){
+	        $this->error("参数传递错误！");
+	    }
+
+	    $condition['id'] = $id;
+	    $data = $this->model->table('order')->where($condition)->find();
+	    unset($condition);
+	    $condition['id'] = $data['userid'];
+	    $user= $this->model->table('user')->where($condition)->find();
+	    $data['username'] = $user['username'];
+		$this->assign('model',$this->model);
+		$this->assign('data',$data);
+		$this->assign('uservip',$user['jh']);
+		$this->display();
+	}
+
+	////////////////////
 
 	public function ajax_Calculate(){
 		$data['daishoukuan'] = in($_POST['daishoukuan']);
@@ -515,6 +643,41 @@ class manageMod extends commonMod{
 		$this->assign('stdout',$stdout);
 		$this->display();
 	}
+	
+	//订单对帐20140531
+		public function orderSets(){
+		if($_POST['do']){
+			$danhao = $_POST['danhao'];
+			$orderSets = intval($_POST['orderSets']);
+			$danhao_arr = explode("\r\n", $danhao);
+			$danhao_arr = array_filter($danhao_arr);
+			$stdout = "";
+			foreach($danhao_arr as $dh)
+			{
+				//退货 2
+ 				//成功 3
+				if($orderSets == 1){
+
+					$where = "WHERE wuliudanhao='$dh' AND jiesuanid<>0";
+					$sql = "UPDATE {$this->model->pre}order SET `status` = '2' {$where}";
+					$result = $this->model->query($sql);
+					$ok = mysql_affected_rows();
+					if($ok){
+						$stdout .= $dh." 设置为已回款 <font color=green>成功</font><br />";
+					}else{
+						$stdout .= $dh." 设置为已回款 <font color=red>失败</font> 可能是因为此单号不存在或者此单号已经是已回款了.<br />";
+					}
+				}else{
+					return;
+				}
+	        	
+	    	}
+	    	
+		}
+		$this->assign('stdout',$stdout);
+		$this->display();
+	}
+	/////////////////////
 
 	public function excel(){
 		$url = __URL__ . "/excel?username=$_GET[username]&amp;f=$_GET[f]&amp;w=$_GET[w]&amp;i=$_GET[i]&amp;a=$_GET[a]&amp;itime=$_GET[itime]&amp;atime=$_GET[atime]&amp;do=yes&amp;page={page}"; //分页基准网址
