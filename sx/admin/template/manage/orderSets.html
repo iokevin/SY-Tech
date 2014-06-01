@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+<link href="__PUBLIC__/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/diy.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/edit/themes/default/default.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
+
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<form name="orderSet" action="{F:url('manage/orderSets')}" method="POST">
+<div class="pad-10" id="sets">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+     <input class="Ybutton" type="submit" id="yiqianshou" value="批量设置为已回款" onclick="orderSet.orderSets.value='1';return confirm('确认要批量设置为已回款吗？:::此行为不可逆！:::');" />
+     <input type="hidden" name="orderSets" value=""/>
+     <input type="hidden" name="do" value="yes"/>
+    </div>
+</div>
+<span id="r">本功能在你批量查询单号是否回款后，然后批量设置。每行一条数据。</span><br />
+<br />
+<textarea name="danhao" id="" cols="30" rows="10"></textarea>
+</form>
+<div id="std">{$stdout}</div>
+</div>
+</body></html>

@@ -63,6 +63,8 @@
  </select>
   <input type="hidden" name="f" value="{$_GET['f']}"/>
   <input type="hidden" name="w" value="{$_GET['w']}"/>
+    <input type="hidden" name="m" value="{$_GET['m']}"/>
+  <input type="hidden" name="s" value="{$_GET['s']}"/>
 </form>
 <!--  &nbsp;&nbsp;&nbsp;&nbsp;
 <form action="{F:url('manage/order')}" method="post" style="display:inline">
@@ -78,7 +80,7 @@
     <table width="100%">
       <thead>
       <tr>
-			<th><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+<!--			<th><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>-->
       <th>编号</th>
 			<th>客户</th>
 		<!--	<th>收货地址</th>
@@ -98,15 +100,13 @@
       </thead>
       <tbody>
     {loop $data $vo}
-	     <tr bgcolor="{if $vo['isfahuo']==2 && $vo['isjiesuan']==1}{$errorcolor}{elseif $vo['isfahuo']==3 && $vo['isjiesuan']==1}{$successcolor}{/if}">
-      <td><input class="inputcheckbox " name="ids[]" value="{$vo.aid}" type="checkbox"></td>
-      <td><a href="__URL__/edit-{$vo['aid']}">{$vo.aid}</a> {if $vo['isfahuo']==0}<font color="red">未</font>{/if}</td>
-      <td>{if $vo['jh']==2}<font color="red">VIP</font>{elseif $vo['jh'] == 4}<font color="blue">黑</font>{/if} <a href="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$vo['username'].'&f='.$_GET[f].'&w='.$_GET[w].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&do=yes')}">{$vo.username}</a></td>
-      <td>{F:msubstr($vo['address'],0,6)}</td>
-      <td>{$vo.shouhuoren}</td>
+	     <tr>
+<!--      <td><input class="inputcheckbox " name="ids[]" value="{$vo.aid}" type="checkbox"></td>-->
+      <td>{$vo.aid} {if $vo['status']==1 && $vo['isfahuo']!=2}<font color="red">未</font>{/if}</td>
+      <td> <a href="{F:url('manage/order?keyword='.$_GET['keyword'].'&kehu='.$vo['username'].'&f='.$_GET[f].'&w='.$_GET[w].'&m='.$_GET['m'].'&s='.$_GET['s'].'&do=yes')}">{$vo.username}</a>{if $vo['jh']==2}<font color="blue">(VIP)</font>{/if}</td>
       <td>{$vo.fahuotime}</td>
       <td>{$vo.wuliu}</td>
-      <td>
+      <td bgcolor="{if $vo['status']!=1 && $vo['status']!=2}{$errorcolor}{elseif $vo['status']==2}{$successcolor}{/if}">
       {if !empty($vo['wuliudanhao'])}
       {loop $post $k $v}
       {if $vo['wuliu']==$v}
@@ -115,8 +115,6 @@
       {/loop}
       {/if}</td>
       <td>{$vo.daishoukuan}</td>
-      <td>{$vo.pifajia}</td>
-      <td>{$vo.youfei}</td>
       <td>{$vo.yingli}</td>
       <td>
         <?php
@@ -155,18 +153,41 @@
        ?>
         {$vo.isfahuo}-{$vo.isjiesuan}
       </td>
-      <td>
-      <a href="__URL__/edit-{$vo['aid']}">修改</a>|
-      <a onclick="return confirm('确认要删除编号 『 {$vo['aid']} 』 吗？')" href="__URL__/del-{$vo['aid']}" >删除</a>
+       <td bgcolor="{if $vo['status']!=1 && $vo['status']!=2}{$errorcolor}{elseif $vo['status']==2}{$successcolor}{/if}" width="100px">
+        <?php
+      switch ($vo['status']){
+            case '1':
+            $vo['status'] = "未回款";
+          break;
+            case '2':
+            $vo['status'] = "已回款";
+          break;
+            case '3':
+            $vo['status'] = "未回款-签改退";
+          break;
+            case '4':
+            $vo['status'] = "已回款-签改退";
+          break;
+          	case '5':
+            $vo['status'] = "其他";
+          break;
+            default:
+            $vo['status'] = "未回款";
+          break;
+        }
+       ?>
+       {if $vo['isfahuo']!='退货'}{$vo.status}{else}——{/if}
       </td>
-      <td>{if !empty($vo['wuliu'])}<a target='_blank' href="__URL__/dayin?kd={loop $post $k $v}{if $vo['wuliu']==$v}{$postapi[$k]}{/if}{/loop}&id={$vo.aid}">打印</a>{/if}</td>
+      <td>
+      <a href="__URL__/orderEdit-{$vo['aid']}"><font color="Blue">查看详情</font></a>
+      </td>
       </tr>
     {/loop}
       </tbody>
     </table>
-    <div class="btn"><label for="check_box">全选/取消</label>
+    <div class="btn"><!--<label for="check_box">全选/取消</label>-->
 			<input type="hidden" value="true" name="do">
-				<input type="submit" class="button" value="删除" ><span style="float:right;margin-right:20px;color:#888"><h5>总计: <font color="#f95">{$count}</font> 条数据</h5></span>
+				<!--<input type="submit" class="button" value="删除" >--><span style="float:right;margin-right:20px;color:#888"><h5>总计: <font color="#f95">{$count}</font> 条数据</h5></span>
 <!-- 			<input type="button" class="button" value="推送" onclick="push();">
 				<input type="button" class="button" value="批量移动" onclick="myform.action='?m=content&c=content&a=remove&catid=6';myform.submit();"> -->
 			</div>
