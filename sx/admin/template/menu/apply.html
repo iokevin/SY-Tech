@@ -14,6 +14,12 @@
                     <a href="javascript:_MP('2','__APP__/apply/shenqing');" hidefocus="true" style="outline:none;">结账申请</a></li>
                 <li id="_MP3" class="sub_menu">
                     <a href="javascript:_MP('3','__APP__/apply/history');" hidefocus="true" style="outline:none;">历史结账</a></li>
+                 <?php if($_SESSION['admin_username']=='kevin' || $_SESSION['admin_username']=='lanbo'){?>
+                <li id="_MP4" class="sub_menu">
+                    <a href="javascript:_MP('4','__APP__/manage/order?f=31&do=yes');" hidefocus="true" style="outline:none;">订单对账</a></li>
+                     <li id="_MP5" class="sub_menu">
+                    <a href="javascript:_MP('5','__APP__/manage/orderSets');" hidefocus="true" style="outline:none;">批量设置回款</a></li>
+                  <?php } ?>
             </ul>
             <script type="text/javascript">
             $(".switchs").each(function(i){
