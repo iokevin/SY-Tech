@@ -1,3 +1,14 @@
+20140531
+order表增加字段status,desc
+ `status` tinyint(2) NOT NULL DEFAULT '1',
+  `desc` varchar(255) DEFAULT NULL,
+后台增加订单对账功能
+admin/module/manageMod.class.php
+admin/template/manage/order.html
+admin/template/manage/orderEdit.html
+admin/template/manage/orderSets.html
+admin/template/menu/apply.php
+
 20140508 
 后台增加订单查询条件为 成功-未结算 和 退货-未结算 
 admin/template/manage/index.html
