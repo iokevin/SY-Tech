@@ -180,9 +180,12 @@ class manageMod extends commonMod{
 
 		$sql = "SELECT *,A.id as aid FROM {$this->model->pre}order A LEFT JOIN {$this->model->pre}user B ON A.userid = B.id {$where} ORDER BY A.id DESC LIMIT {$limit}";
 		$sql_count = "SELECT count(*) as num FROM {$this->model->pre}order A LEFT JOIN {$this->model->pre}user B ON A.userid = B.id {$where}";
+		$sql_sum = "SELECT sum(yinghuikuan) as allSum FROM {$this->model->pre}order A LEFT JOIN {$this->model->pre}user B ON A.userid = B.id {$where}";
         $data = $this->model->query($sql);
         $num = $this->model->query($sql_count);
+        $aSum = $this->model->query($sql_sum);
         $count = $num[0]['num'];
+        $allSum = $aSum[0]['allSum'];
 
    		$post = explode(',', $this->config['post']);
    		$postapi = explode(',', $this->config['postapi']);
@@ -191,6 +194,7 @@ class manageMod extends commonMod{
 		$this->assign('post',$post);
 		$this->assign('postapi',$postapi);
 		$this->assign('count',$count);
+		$this->assign('allSum',$allSum);
 		$this->assign('page', $this->page($url, $count, $listRows));
 		$this->assign('data',$data);
 		$this->display();

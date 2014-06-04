@@ -1,3 +1,9 @@
+20140604
+order表增加字段yinghuikuan
+  `yinghuikuan` decimal(10,2) NOT NULL DEFAULT '0.00',
+admin/template/manage/order.html
+admin/module/manageMod.class.php
+
 20140531
 order表增加字段status,desc
  `status` tinyint(2) NOT NULL DEFAULT '1',

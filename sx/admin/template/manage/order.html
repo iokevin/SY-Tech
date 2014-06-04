@@ -88,7 +88,8 @@
 			<th>发货日期</th>
 			<th>物流</th>
 			<th>物流单号</th>
-			<th>应收款</th>
+			<th>代收款</th>
+			<th>应回款</th>
 <!--			<th>批发价</th>-->
 <!--			<th>邮费</th>-->
 			<th>结出款</th>
@@ -115,6 +116,7 @@
       {/loop}
       {/if}</td>
       <td>{$vo.daishoukuan}</td>
+      <td>{$vo.yinghuikuan}</td>
       <td>{$vo.yingli}</td>
       <td>
         <?php
@@ -187,7 +189,7 @@
     </table>
     <div class="btn"><!--<label for="check_box">全选/取消</label>-->
 			<input type="hidden" value="true" name="do">
-				<!--<input type="submit" class="button" value="删除" >--><span style="float:right;margin-right:20px;color:#888"><h5>总计: <font color="#f95">{$count}</font> 条数据</h5></span>
+				<!--<input type="submit" class="button" value="删除" >--><span style="float:right;margin-right:20px;color:#888"><h5>{$_GET['kehu']}&nbsp;&nbsp;{$_GET['w']}&nbsp;&nbsp;<font color="Red">{if $_GET['s'] == 1}未回款{elseif $_GET['s'] == 2}已回款{elseif $_GET['s'] == 3}未回款-签改退{elseif $_GET['s'] == 4}已回款-签改退{elseif $_GET['s'] == 5}其他{else}应回款{/if}</font>&nbsp;金额总计：<font color="Red">{$allSum}</font>元&nbsp;&nbsp;总计: <font color="#f95">{$count}</font> 条数据</h5></span>
 <!-- 			<input type="button" class="button" value="推送" onclick="push();">
 				<input type="button" class="button" value="批量移动" onclick="myform.action='?m=content&c=content&a=remove&catid=6';myform.submit();"> -->
 			</div>
