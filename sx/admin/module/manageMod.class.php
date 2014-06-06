@@ -310,6 +310,24 @@ class manageMod extends commonMod{
 		    $data['isjiesuan'] 	 = in($_POST['isjiesuan']);
 		    $data['yingli']	 	 = in($_POST['yingli']);
 		    $data['beizhu'] 	 = text_in($_POST['beizhu']);
+		    
+		    //20140605 加应回款字段
+		    if($data['wuliu']=='EMS快递'){
+		    	$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.02;
+		    }elseif ($data['wuliu']=='顺丰快递'){
+		    	if($data['daishoukuan']>0 && $data['daishoukuan']<=500){
+		    		$data['yinghuikuan']=$data['daishoukuan']-1;
+		    	}elseif ($data['daishoukuan']>500 && $data['daishoukuan']<1000){
+		    		$data['yinghuikuan']=$data['daishoukuan']-2;
+		    	}elseif($data['daishoukuan']>=1000){
+		    		$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.03;
+		    	}else{
+		    		$data['yinghuikuan']=0;
+		    	}
+		    }else{
+		    	$data['yinghuikuan']=0;
+		    }
+		    /////////////////////////
 
 		    // $yingli = $data['yingli'];
 		    // //自动计算盈利
