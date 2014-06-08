@@ -315,15 +315,15 @@ class manageMod extends commonMod{
 		    if($data['wuliu']=='EMS快递'){
 		    	$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.02;
 		    }elseif ($data['wuliu']=='顺丰快递'){
-		    	if($data['daishoukuan']>0 && $data['daishoukuan']<=500){
-		    		$data['yinghuikuan']=$data['daishoukuan']-1;
-		    	}elseif ($data['daishoukuan']>500 && $data['daishoukuan']<1000){
-		    		$data['yinghuikuan']=$data['daishoukuan']-2;
-		    	}elseif($data['daishoukuan']>=1000){
-		    		$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.03;
-		    	}else{
-		    		$data['yinghuikuan']=0;
-		    	}
+//		    	if($data['daishoukuan']>0 && $data['daishoukuan']<=500){
+//		    		$data['yinghuikuan']=$data['daishoukuan']-1;
+//		    	}elseif ($data['daishoukuan']>500 && $data['daishoukuan']<1000){
+//		    		$data['yinghuikuan']=$data['daishoukuan']-2;
+//		    	}elseif($data['daishoukuan']>=1000){
+		    	$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.03;
+//		    	}else{
+//		    		$data['yinghuikuan']=0;
+//		    	}
 		    }else{
 		    	$data['yinghuikuan']=0;
 		    }
