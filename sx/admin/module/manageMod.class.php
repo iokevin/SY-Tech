@@ -312,6 +312,7 @@ class manageMod extends commonMod{
 		    $data['beizhu'] 	 = text_in($_POST['beizhu']);
 		    
 		    //20140605 加应回款字段
+		    if($id>=10046){
 		    if($data['wuliu']=='EMS快递'){
 		    	$data['yinghuikuan']=$data['daishoukuan']-$data['daishoukuan']*0.02;
 		    }elseif ($data['wuliu']=='顺丰快递'){
@@ -326,6 +327,7 @@ class manageMod extends commonMod{
 //		    	}
 		    }else{
 		    	$data['yinghuikuan']=0;
+		    }
 		    }
 		    /////////////////////////
 
