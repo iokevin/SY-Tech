@@ -12,6 +12,7 @@
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin_common.js"></script>
 <script language="javascript" type="text/javascript" src="__PUBLIC__/js/diy.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/lhgdialog.min.js?skin=chrome"></script>
 </head>
 <body>
 <style type="text/css">
@@ -45,6 +46,8 @@
       if(!empty($danhao)){
       $sql = "SELECT *,A.id as aid FROM {$model->pre}order A LEFT JOIN {$model->pre}user B ON A.userid=B.id WHERE A.id in($danhao)";
       $data = $model->query($sql);
+      	$post = explode(',', $model->config['post']);
+		$postapi = explode(',', $model->config['postapi']);
       }
       ?>
     {loop $data $vo}
@@ -55,7 +58,11 @@
       <td>{$vo.shouhuoren}</td>
       <td>{$vo.fahuotime}</td>
       <td>{$vo.wuliu}</td>
-      <td>{$vo.wuliudanhao}</td>
+      <td> {loop $post $k $v}
+      {if $vo['wuliu']==$v}
+        <a onclick="urldialog('查询物流结果','/manage/kuaidi100?com={$postapi[$k]}&nu={$vo.wuliudanhao}')" href="javascript:;">{$vo.wuliudanhao}</a>
+      {/if}
+      {/loop}</td>
       <td>{$vo.daishoukuan}</td>
       <td>{$vo.pifajia}</td>
       <td>{$vo.youfei}</td>
