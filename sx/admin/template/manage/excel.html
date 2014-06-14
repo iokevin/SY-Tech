@@ -49,6 +49,7 @@
      <input type="hidden" name="do" value="yes"/>
      <input class="Ybutton" type="submit" value="提交" />
      <a id="excel" href="{F:url('manage/excel?username='.$_GET['username'].'&f='.$_GET['f'].'&w='.$_GET['w'].'&i='.$_GET['i'].'&a='.$_GET['a'].'&itime='.$_GET['itime'].'&atime='.$_GET['atime'].'&save=all')}"><img src="__PUBLIC__/images/excel.gif" alt="" />导出为Excel</a>
+     &nbsp;&nbsp;&nbsp;&nbsp;<a href="{F:url('manage/excelEMS')}"><font color="Red">一键导出当天EMS订单</font></a>
      <input type="hidden" name="f" value="{$_GET['f']}"/>
      <input type="hidden" name="w" value="{$_GET['w']}"/>
      </form>
