@@ -744,13 +744,13 @@ class manageMod extends commonMod{
     		$atime = in($_GET['atime']);
         	if(!empty($itime)){
     		$itime = strtotime($itime);
-    		$itime = " AND UNIX_TIMESTAMP(fahuotime)>$itime";
+    		$itime = " AND UNIX_TIMESTAMP(fahuotime)>=$itime";
     	}else{
     		$itime = "";
     	}
     	if(!empty($atime)){
     		$atime = strtotime($atime);
-    		$atime = " AND UNIX_TIMESTAMP(fahuotime)<$atime";
+    		$atime = " AND UNIX_TIMESTAMP(fahuotime)<=$atime";
     	}else{
     		$atime = "";
     	}
@@ -796,13 +796,13 @@ class manageMod extends commonMod{
     		$atime = in($_GET['atime']);
         	if(!empty($itime)){
     		$itime = strtotime($itime);
-    		$itime = " AND UNIX_TIMESTAMP(fahuotime)>$itime";
+    		$itime = " AND UNIX_TIMESTAMP(fahuotime)>=$itime";
 	    	}else{
 	    		$itime = "";
 	    	}
 	    	if(!empty($atime)){
 	    		$atime = strtotime($atime);
-	    		$atime = " AND UNIX_TIMESTAMP(fahuotime)<$atime";
+	    		$atime = " AND UNIX_TIMESTAMP(fahuotime)<=$atime";
 	    	}else{
 	    		$atime = "";
 	    	}
@@ -928,4 +928,45 @@ class manageMod extends commonMod{
 	    }
 	    $this->success("删除成功",__URL__);
     }
+    
+    //一键导出当天EMS订单
+    public function excelEMS(){
+
+    	$fwhere = " AND isfahuo = 1 ";
+
+    	$wwhere = " AND wuliu = 'EMS快递' ";
+
+    	$ntime = " AND UNIX_TIMESTAMP(fahuotime) = UNIX_TIMESTAMP(CURDATE()) ";
+
+    	$where = "WHERE '1=1' $fwhere $wwhere $ntime";
+
+    	$sql = "SELECT * FROM {$this->model->pre}order {$where} ORDER BY id DESC";
+    	$stdData = $this->model->query($sql);
+
+    	$xlsData = array();
+    	$n = 1;
+    	foreach ($stdData as $k=>$vo) {
+
+    		$xlsData[$k]['id'] = $n;
+    		$xlsData[$k]['fahuotime'] = $vo['fahuotime'];
+
+    		$xlsData[$k]['shouhuoren'] = $vo['shouhuoren'];
+    		$xlsData[$k]['address'] = $vo['address'];
+
+    		$xlsData[$k]['wuliu'] = $vo['wuliu'];
+    		$xlsData[$k]['wuliudanhao'] = $vo['wuliudanhao'];
+    		$xlsData[$k]['daishoukuan'] = $vo['daishoukuan'];
+
+    		$n++;
+    	}
+    	$title = array(1=>array ("编号",'发货时间','收件人姓名','收件人地址','快递','快递单号','代收货款'));
+    	$xls = new Excel('UTF-8', true, 'Excel报表');
+    	$xls->addArray($title);
+    	$xls->addArray($xlsData);
+    	$xls_name = 'EMS-'.date('Y-m-d');
+    	$xls->generateXML($xls_name);
+    	return;
+
+    }
+    ///////////////////////
 }
