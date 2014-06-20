@@ -52,7 +52,7 @@
       ?>
     {loop $data $vo}
 	    <tr>
-      <td>{$vo.aid}</td>
+      <td><a href="/manage/edit-{$vo['aid']}">{$vo.aid}</a></td>
       <td>{$vo.username}</td>
       <td>{$vo.address}</td>
       <td>{$vo.shouhuoren}</td>
