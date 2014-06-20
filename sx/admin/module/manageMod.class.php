@@ -563,6 +563,10 @@ class manageMod extends commonMod{
         	if(!empty($f)){
     			if($f == 9){
     				$f = " AND isfahuo = 0 ";
+    			}elseif($f == 30){
+    				$f = " AND isfahuo = 3 AND isjiesuan = 0 ";
+    			}elseif($f == 20){
+    				$f = " AND isfahuo = 2 AND isjiesuan = 0 ";    				
     			}else{
     				$f = " AND isfahuo = $f ";
     		}
